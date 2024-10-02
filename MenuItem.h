@@ -2,16 +2,16 @@
 #define MENUITEM_H
 
 #include <string>
+using namespace std;
 
+// MenuItem class
 class MenuItem {
-private:
-    std::string name;
+    string name;
     float price;
-
 public:
-    MenuItem(std::string name, float price);
-    std::string get_name() const;
-    float get_price() const;
+    MenuItem(string name, float price) : name(name), price(price) {}
+    string getName() const { return name; }
+    float getPrice() const { return price; }
 };
 
 #endif

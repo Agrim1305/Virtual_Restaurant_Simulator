@@ -1,26 +1,41 @@
-#include <iostream>
-#include "Menu.h"
+#include "Restaurant.h"
+#include "Employee.h"
 #include "Customer.h"
-#include "Order.h"
+#include <iostream>
+using namespace std;
 
 int main() {
-    // Create a simple menu
-    Menu menu;
-    menu.add_item(MenuItem("Pizza", 12.50));
-    menu.add_item(MenuItem("Burger", 8.75));
-    menu.add_item(MenuItem("Pasta", 10.00));
-
-    // Display the menu
-    std::cout << "Welcome to the Restaurant Simulator!\n";
-    menu.display_menu();
-
-    // Create a customer and allow them to place an order
+    Restaurant restaurant;
     Customer customer("John Doe");
-    customer.place_order(menu);
 
-    // Show the customer's order
-    std::cout << "\nCustomer Order: \n";
-    customer.get_order().display_order();
+    Chef chef("Gordon Ramsay", 101);
+    Waiter waiter("Alice", 102);
+    Manager manager("Bob", 103);
 
-    return 0; // Program ran successfully
+    restaurant.hireEmployee(&chef);
+    restaurant.hireEmployee(&waiter);
+    restaurant.hireEmployee(&manager);
+
+    int choice;
+    do {
+        cout << "1. Process Order\n2. Manage Restaurant\n3. Save Data\n4. Load Data\n5. Exit\n";
+        cout << "Choose an option: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                restaurant.processOrder(customer);
+                break;
+            case 2:
+                restaurant.manageRestaurant();
+                break;
+            case 3:
+                restaurant.saveData();
+                break;
+            case 4:
+                restaurant.loadData();
+                break;
+        }
+    } while (choice != 5);
+
+    return 0;
 }

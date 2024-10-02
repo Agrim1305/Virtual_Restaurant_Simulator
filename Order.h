@@ -1,16 +1,27 @@
 #ifndef ORDER_H
 #define ORDER_H
 
-#include <vector>
 #include "MenuItem.h"
+#include <vector>
+#include <iostream>
+using namespace std;
 
+// Order class
 class Order {
-private:
-    std::vector<MenuItem> items;
-
+    vector<MenuItem> items;
+    float totalCost = 0;
 public:
-    void add_item(const MenuItem& item);
-    void display_order() const;
+    void addItem(MenuItem item) {
+        items.push_back(item);
+        totalCost += item.getPrice();
+    }
+    void displayOrder() const {
+        cout << "Order: " << endl;
+        for (const auto& item : items) {
+            cout << item.getName() << " - $" << item.getPrice() << endl;
+        }
+        cout << "Total: $" << totalCost << endl;
+    }
 };
 
 #endif

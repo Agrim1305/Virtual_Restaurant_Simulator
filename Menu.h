@@ -1,16 +1,21 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <vector>
 #include "MenuItem.h"
+#include <vector>
+#include <iostream>
+using namespace std;
 
+// Menu class
 class Menu {
-private:
-    std::vector<MenuItem> items;
-
+    vector<MenuItem> items;
 public:
-    void add_item(const MenuItem& item);
-    void display_menu() const;
+    void addItem(MenuItem item) { items.push_back(item); }
+    void displayMenu() const {
+        for (const auto& item : items) {
+            cout << item.getName() << " - $" << item.getPrice() << endl;
+        }
+    }
 };
 
 #endif
