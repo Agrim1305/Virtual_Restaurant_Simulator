@@ -3,12 +3,16 @@
 
 #include <string>
 #include <vector>
-#include <utility>  // For std::pair
+struct Ingredient {
+    std::string name;
+    int quantity;
+
+    Ingredient(const std::string& n, int q) : name(n), quantity(q) {}
+};
 
 class Inventory {
 private:
-    // Vector of ingredients (string) and their quantities (int)
-    std::vector<std::pair<std::string, int>> ingredients;
+    std::vector<Ingredient> ingredients;
 
 public:
     // Constructor
