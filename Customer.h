@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Order.h"
-#include "Menu.h"  // Add this to resolve the 'Menu' declaration issue
+#include "Menu.h"  
 
 class Customer {
 private:
@@ -12,7 +12,7 @@ private:
     Order order;
 public:
     Customer(std::string n, int t);
-    void placeOrder(Menu& menu);  // Now 'Menu' is recognized
+    void placeOrder(Menu& menu);  
     Order getOrder() const;
 };
 
