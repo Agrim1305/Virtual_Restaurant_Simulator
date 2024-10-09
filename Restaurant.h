@@ -12,13 +12,23 @@ class Restaurant {
     Menu menu;
     std::vector<Table> tables;
     Inventory inventory;
-    std::vector<Employee*> employees;
+    std::vector<Chef> chefs;  // Store Chefs
+    std::vector<Waiter> waiters;  // Store Waiters
+    Manager* manager;  // One Manager
 
 public:
-    Menu& get_menu();  // Add this method to get access to the menu
+    Restaurant();
 
-    void process_order(Customer& customer);
+    Menu& get_menu();
+    Inventory& get_inventory();
+
+    void add_chef(const Chef& chef);
+    void add_waiter(const Waiter& waiter);
+    void set_manager(Manager* manager);
+
+    void process_order(Customer& customer);  // Process using chef
     void seat_customer(Customer& customer);
+    void serve_order(Customer& customer);  // Serve using waiter
     void track_performance();
 };
 

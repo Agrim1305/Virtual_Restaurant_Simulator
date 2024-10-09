@@ -19,3 +19,8 @@ void Order::display_order() const {
     }
     std::cout << "Total cost: $" << calculate_total() << std::endl;
 }
+
+// Implementation of get_items method
+std::vector<MenuItem> Order::get_items() const {
+    return items;
+}

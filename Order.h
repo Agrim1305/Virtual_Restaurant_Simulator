@@ -10,8 +10,11 @@ class Order {
 
 public:
     void add_item(const MenuItem& item);
-    float calculate_total() const;  // Mark this method as const
+    float calculate_total() const;
     void display_order() const;
+    
+    // Add get_items method to return the list of items
+    std::vector<MenuItem> get_items() const;
 };
 
 #endif

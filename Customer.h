@@ -4,7 +4,7 @@
 #include "Order.h"
 #include <string>
 
-class Menu;  // Forward declaration of Menu
+class Menu;  // Forward declaration of the Menu class
 
 class Customer {
     std::string name;
@@ -12,9 +12,9 @@ class Customer {
     Order order;
 
 public:
-    Customer(std::string name, int table_number);
+    Customer(const std::string& name, int table_number);
 
-    void place_order(const Menu& menu);  // Use the forward-declared Menu
+    void place_order(const Menu& menu);  // Reference to Menu class
     Order get_order() const;
     float pay_bill() const;
 };

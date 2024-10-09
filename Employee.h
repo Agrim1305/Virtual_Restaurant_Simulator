@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include "Order.h"  // Ensure Order is included
 
 class Employee {
 protected:
@@ -13,31 +12,40 @@ protected:
 
 public:
     Employee(std::string name, int id, std::string role);
+
+    // Pure virtual function to perform tasks
     virtual void perform_task() = 0;
+
     std::string get_name() const;
     std::string get_role() const;
 };
 
+// Derived class: Chef
 class Chef : public Employee {
 public:
     Chef(std::string name, int id);
-    void prepare_order(const Order& order);
-    void perform_task() override;
+    
+    void prepare_order();  // Specific to Chef
+    void perform_task() override;  // Override perform_task
 };
 
+// Derived class: Waiter
 class Waiter : public Employee {
 public:
     Waiter(std::string name, int id);
-    void serve_order(const Order& order);
-    void assign_table(int table_number);
-    void perform_task() override;
+    
+    void serve_order();  // Specific to Waiter
+    void assign_table(int table_number);  // Assign a customer to a table
+    void perform_task() override;  // Override perform_task
 };
 
+// Derived class: Manager
 class Manager : public Employee {
 public:
     Manager(std::string name, int id);
-    void manage_staff(std::vector<Employee*>& staff);
-    void perform_task() override;
+    
+    void manage_staff(std::vector<Employee*>& staff);  // Manager-specific task
+    void perform_task() override;  // Override perform_task
 };
 
 #endif

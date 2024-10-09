@@ -11,7 +11,8 @@ public:
     void add_item(const MenuItem& item);
     void remove_item(const std::string& item_name);
     void display_menu() const;
-    MenuItem get_item(int index) const;  // Add this method to get a menu item by index
+    MenuItem get_item(int index) const;
+    int get_items_size() const;
 };
 
 #endif
