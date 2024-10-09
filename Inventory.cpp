@@ -1,6 +1,7 @@
 #include "Inventory.h"
 #include <iostream>
 //Inventory
+//UP
 // Constructor initializes with some ingredients and quantities
 Inventory::Inventory() {
     // Initialize with some default ingredients and quantities
