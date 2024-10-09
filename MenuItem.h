@@ -4,15 +4,16 @@
 #include <string>
 
 class MenuItem {
-private:
     std::string name;
     float price;
     int prep_time;
+
 public:
-    MenuItem(std::string n, float p, int t) : name(n), price(p), prep_time(t) {}
-    std::string getName() const;
-    float getPrice() const;
-    int getPrepTime() const;
+    MenuItem(std::string name, float price, int prep_time);
+
+    std::string get_name() const;
+    float get_price() const;
+    int get_prep_time() const;
 };
 
 #endif

@@ -1,22 +1,27 @@
 #include "Restaurant.h"
 #include <iostream>
 
-void Restaurant::placeOrder() {
-    std::cout << "Placing customer order...\n";
-    // Add logic for placing customer orders
+Menu& Restaurant::get_menu() {
+    return menu;
 }
 
-void Restaurant::manageStaff() {
-    std::cout << "Managing staff...\n";
-    // Add logic for managing staff
+void Restaurant::process_order(Customer& customer) {
+    customer.place_order(menu);
+    std::cout << "Order has been placed by customer." << std::endl;
 }
 
-void Restaurant::checkInventory() {
-    std::cout << "Checking inventory...\n";
-    // Add logic for inventory check
+void Restaurant::seat_customer(Customer& customer) {
+    for (auto& table : tables) {
+        if (!table.get_occupied_status()) {
+            table.occupy(customer);
+            std::cout << "Customer has been seated at table " << table.get_number() << std::endl;
+            return;
+        }
+    }
+    std::cout << "No tables available." << std::endl;
 }
 
-void Restaurant::viewPerformance() {
-    std::cout << "Viewing daily performance...\n";
-    // Add logic to view restaurant performance
+void Restaurant::track_performance() {
+    std::cout << "Tracking restaurant performance..." << std::endl;
+    // Implement performance tracking here.
 }

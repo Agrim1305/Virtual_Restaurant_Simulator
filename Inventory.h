@@ -1,37 +1,17 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
-#include <string>
+#include "MenuItem.h"
 #include <vector>
-struct Ingredient {
-    std::string name;
-    int quantity;
-
-    Ingredient(const std::string& n, int q) : name(n), quantity(q) {}
-};
+#include <string>
 
 class Inventory {
-private:
-    std::vector<Ingredient> ingredients;
+    std::vector<std::pair<std::string, int>> ingredients;
 
 public:
-    // Constructor
-    Inventory();
-
-    // Function to add initial stock
-    void addIngredient(const std::string& ingredient, int quantity);
-
-    // Function to check if enough stock is available for a menu item
-    bool checkStock(const std::string& ingredient, int quantity) const;
-
-    // Function to restock ingredients
-    void restock(const std::string& ingredient, int quantity);
-
-    // Function to notify low stock levels
-    void notifyLowStock() const;
-
-    // Function to display current inventory
-    void displayInventory() const;
+    bool check_stock(const MenuItem& item);
+    void restock(const std::string& ingredient, int amount);
+    void notify_low_stock();
 };
 
 #endif

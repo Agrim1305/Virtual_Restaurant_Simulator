@@ -1,44 +1,22 @@
-#include <iostream>
 #include "Restaurant.h"
+#include "Customer.h"
+#include "Menu.h"
+#include <iostream>
 
 int main() {
     Restaurant myRestaurant;
 
-    // Main loop for user interaction
-    int choice;
-    do {
-        std::cout << "1. Place Customer Order\n";
-        std::cout << "2. Manage Staff\n";
-        std::cout << "3. Check Inventory\n";
-        std::cout << "4. View Daily Performance\n";
-        std::cout << "5. Exit\n";
-        std::cout << "Enter your choice: ";
-        std::cin >> choice;
+    // Access menu via the getter method
+    myRestaurant.get_menu().add_item(MenuItem("Pasta", 12.99, 15));
+    myRestaurant.get_menu().add_item(MenuItem("Burger", 8.99, 10));
+    myRestaurant.get_menu().add_item(MenuItem("Salad", 6.99, 5));
 
-        switch (choice) {
-            case 1:
-                // Place customer order logic
-                myRestaurant.placeOrder();
-                break;
-            case 2:
-                // Staff management logic
-                myRestaurant.manageStaff();
-                break;
-            case 3:
-                // Inventory check logic
-                myRestaurant.checkInventory();
-                break;
-            case 4:
-                // View daily performance logic
-                myRestaurant.viewPerformance();
-                break;
-            case 5:
-                std::cout << "Exiting...\n";
-                break;
-            default:
-                std::cout << "Invalid option. Try again.\n";
-        }
-    } while (choice != 5);
+    // Simulate customer seating and ordering
+    Customer customer("John Doe", 1);
+    myRestaurant.seat_customer(customer);
+    myRestaurant.process_order(customer);
+    customer.get_order().display_order();
+    std::cout << "Total to pay: $" << customer.pay_bill() << std::endl;
 
     return 0;
 }

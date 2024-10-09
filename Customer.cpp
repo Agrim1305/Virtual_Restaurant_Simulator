@@ -1,13 +1,23 @@
 #include "Customer.h"
-#include "Menu.h"  
+#include "Menu.h"
 #include <iostream>
 
-Customer::Customer(std::string n, int t) : name(n), table_number(t) {}
+Customer::Customer(std::string name, int table_number)
+    : name(name), table_number(table_number) {}
 
-void Customer::placeOrder(Menu& menu) {
-
+void Customer::place_order(const Menu& menu) {
+    int choice;
+    menu.display_menu();
+    std::cout << "Select items to order (enter 0 to finish): ";
+    while (std::cin >> choice && choice != 0) {
+        order.add_item(menu.get_item(choice - 1));  // Assuming menu indices start at 1
+    }
 }
 
-Order Customer::getOrder() const {
+Order Customer::get_order() const {
     return order;
+}
+
+float Customer::pay_bill() const {
+    return order.calculate_total();
 }
