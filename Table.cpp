@@ -1,5 +1,5 @@
 #include "Table.h"
-
+//This is table
 Table::Table(int number) : number(number), is_occupied(false) {}
 
 void Table::occupy(Customer& customer) {

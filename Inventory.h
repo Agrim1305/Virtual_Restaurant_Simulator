@@ -1,6 +1,6 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
-
+//Inventory
 #include "Ingredient.h"
 #include "MenuItem.h"
 #include <vector>

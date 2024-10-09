@@ -1,6 +1,6 @@
 #ifndef TABLE_H
 #define TABLE_H
-
+//This is table
 #include "Customer.h"
 
 class Table {

@@ -1,6 +1,6 @@
 #include "Restaurant.h"
 #include <iostream>
-
+//Restaurant
 Restaurant::Restaurant() {
     // Initialize with some tables
     for (int i = 1; i <= 10; ++i) {

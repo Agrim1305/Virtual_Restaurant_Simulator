@@ -1,6 +1,6 @@
 #ifndef RESTAURANT_H
 #define RESTAURANT_H
-
+//Restraurant
 #include "Menu.h"
 #include "Table.h"
 #include "Inventory.h"
