@@ -4,7 +4,6 @@
 #include <iostream>
 #include <limits>
 
-// Function to display the main menu
 void display_menu() {
     std::cout << "==== Virtual Restaurant Simulator ====\n";
     std::cout << "1. Add Customer and Seat Them\n";
@@ -20,10 +19,10 @@ void display_menu() {
 int main() {
     Restaurant myRestaurant;
 
-    // Add items to the menu
-    myRestaurant.get_menu().add_item(MenuItem("Pasta", 12.99, 15));
-    myRestaurant.get_menu().add_item(MenuItem("Burger", 8.99, 10));
-    myRestaurant.get_menu().add_item(MenuItem("Salad", 6.99, 5));
+    // Add items to the menu (with their ingredients)
+    myRestaurant.get_menu().add_item(MenuItem("Pasta", 12.99, 15, "Pasta", 1));
+    myRestaurant.get_menu().add_item(MenuItem("Burger", 8.99, 10, "Beef Patty", 1));
+    myRestaurant.get_menu().add_item(MenuItem("Salad", 6.99, 5, "Salad Greens", 1));
 
     // Add employees to the restaurant
     Chef chef1("Gordon Ramsay", 101);
@@ -37,32 +36,29 @@ int main() {
     // Create a test customer
     Customer customer("John Doe", 1);
 
-    // Menu options interaction loop
     int option;
     do {
         display_menu();
         std::cin >> option;
 
         switch (option) {
-            case 1:  // Add customer and seat them
+            case 1:
                 std::cout << "Seating customer...\n";
                 myRestaurant.seat_customer(customer);
                 break;
 
-            case 2:  // Place customer order
+            case 2:
                 std::cout << "Processing customer order...\n";
                 myRestaurant.process_order(customer);
-                
-                // Show the total bill after the order is finalized
                 std::cout << "Total bill: $" << customer.pay_bill() << std::endl;
                 break;
 
-            case 3:  // Serve customer order
+            case 3:
                 std::cout << "Serving customer order...\n";
                 myRestaurant.serve_order(customer);
                 break;
 
-            case 4:  // Restock inventory
+            case 4:
             {
                 std::string ingredient;
                 int quantity;
@@ -75,21 +71,21 @@ int main() {
                 break;
             }
 
-            case 5:  // View inventory
+            case 5:
                 std::cout << "\nCurrent Inventory:\n";
                 myRestaurant.get_inventory().display_inventory();
                 break;
 
-            case 6:  // Track performance
+            case 6:
                 std::cout << "Tracking performance...\n";
                 myRestaurant.track_performance();
                 break;
 
-            case 0:  // Exit
+            case 0:
                 std::cout << "Exiting program...\n";
                 break;
 
-            default:  // Invalid option
+            default:
                 std::cout << "Invalid option. Please try again.\n";
                 break;
         }

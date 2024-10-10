@@ -1,11 +1,7 @@
 #include "Restaurant.h"
 #include <iostream>
-Restaurant::Restaurant() {
-    // Initialize with some tables
-    for (int i = 1; i <= 10; ++i) {
-        tables.push_back(Table(i));
-    }
-}
+
+Restaurant::Restaurant() : manager(nullptr) {}  // Default constructor
 
 Menu& Restaurant::get_menu() {
     return menu;
@@ -30,35 +26,29 @@ void Restaurant::set_manager(Manager* manager) {
 void Restaurant::process_order(Customer& customer) {
     customer.place_order(menu);
 
-    // Assign a chef to prepare the order
-    if (!chefs.empty()) {
-        chefs[0].prepare_order();  // First chef in the vector prepares the order
-    } else {
-        std::cout << "No chefs available to prepare the order!" << std::endl;
+    // For each item in the customer's order, use the ingredients
+    for (const auto& item : customer.get_order().get_items()) {
+        if (inventory.check_stock(item)) {
+            inventory.use_ingredient(item);  // Reduce the ingredient from the inventory
+        } else {
+            std::cout << "Not enough ingredients to prepare " << item.get_name() << "!" << std::endl;
+        }
     }
-}
 
-void Restaurant::serve_order(Customer& customer) {
-    if (!waiters.empty()) {
-        waiters[0].serve_order();  // First waiter serves the order
-    } else {
-        std::cout << "No waiters available to serve the order!" << std::endl;
-    }
+    std::cout << "Order has been processed." << std::endl;
 }
 
 void Restaurant::seat_customer(Customer& customer) {
-    for (auto& table : tables) {
-        if (!table.get_occupied_status()) {
-            table.occupy(customer);
-            std::cout << "Customer has been seated at table " << table.get_number() << std::endl;
-            return;
-        }
-    }
-    std::cout << "No tables available." << std::endl;
+    std::cout << "Customer has been seated.\n";
+}
+
+void Restaurant::serve_order(Customer& customer) {
+    std::cout << "Serving the customer order...\n";
 }
 
 void Restaurant::track_performance() {
     if (manager != nullptr) {
-        manager->perform_task();  // Manager oversees performance
+        std::cout << "Manager is tracking performance...\n";
+        manager->perform_task();
     }
 }

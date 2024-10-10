@@ -1,84 +1,65 @@
 #include "Inventory.h"
 #include <iostream>
-// Constructor initializes with some ingredients and quantities
+
 Inventory::Inventory() {
-    // Initialize with some default ingredients and quantities
-    ingredients.push_back(Ingredient("Pasta", 10));
-    ingredients.push_back(Ingredient("Burger Bun", 15));
-    ingredients.push_back(Ingredient("Lettuce", 8));
-    ingredients.push_back(Ingredient("Tomato", 10));
-    ingredients.push_back(Ingredient("Beef Patty", 10));
-    ingredients.push_back(Ingredient("Salad Greens", 12));
+    // Initialize inventory with some default quantities
+    ingredients.push_back({"Pasta", 10});
+    ingredients.push_back({"Burger Bun", 15});
+    ingredients.push_back({"Lettuce", 8});
+    ingredients.push_back({"Tomato", 10});
+    ingredients.push_back({"Beef Patty", 10});
+    ingredients.push_back({"Salad Greens", 12});
 }
 
 // Add a new ingredient to the inventory
 void Inventory::add_ingredient(const std::string& ingredient, int quantity) {
-    ingredients.push_back(Ingredient(ingredient, quantity));
+    ingredients.push_back({ingredient, quantity});
 }
 
 // Check if enough ingredients are available for a menu item
 bool Inventory::check_stock(const MenuItem& item) {
-    std::string name = item.get_name();
-    Ingredient* ingredient = find_ingredient(name);
-    
-    if (ingredient != nullptr && ingredient->get_quantity() > 0) {
-        return true;
+    for (auto& ingredient : ingredients) {
+        if (ingredient.first == item.get_ingredient() && ingredient.second >= item.get_ingredient_quantity()) {
+            return true;
+        }
     }
     return false;
 }
 
 // Use ingredients when preparing a menu item
-void Inventory::use_ingredients(const MenuItem& item) {
-    std::string name = item.get_name();
-    Ingredient* ingredient = find_ingredient(name);
-    
-    if (ingredient != nullptr && ingredient->get_quantity() > 0) {
-        ingredient->use(1);
-        std::cout << "Used one unit of " << name << ". Remaining: " 
-                  << ingredient->get_quantity() << std::endl;
-    } else {
-        std::cout << "Out of stock for " << name << "!" << std::endl;
+void Inventory::use_ingredient(const MenuItem& item) {
+    for (auto& ingredient : ingredients) {
+        if (ingredient.first == item.get_ingredient()) {
+            if (ingredient.second >= item.get_ingredient_quantity()) {
+                ingredient.second -= item.get_ingredient_quantity();
+                std::cout << "Used " << item.get_ingredient_quantity() << " units of " << item.get_ingredient() 
+                          << ". Remaining: " << ingredient.second << std::endl;
+
+                if (ingredient.second < 5) {
+                    std::cout << "Warning: " << ingredient.first << " is low in stock!" << std::endl;
+                }
+            } else {
+                std::cout << "Not enough stock of " << item.get_ingredient() << "!" << std::endl;
+            }
+        }
     }
 }
 
 // Restock ingredients
-void Inventory::restock(const std::string& ingredient_name, int amount) {
-    Ingredient* ingredient = find_ingredient(ingredient_name);
-    
-    if (ingredient != nullptr) {
-        ingredient->restock(amount);
-        std::cout << ingredient_name << " restocked. New quantity: " 
-                  << ingredient->get_quantity() << std::endl;
-    } else {
-        std::cout << "Ingredient " << ingredient_name << " not found!" << std::endl;
-    }
-}
-
-// Notify if stock of any ingredient is low
-void Inventory::notify_low_stock(int threshold) {
-    for (const auto& ingredient : ingredients) {
-        if (ingredient.get_quantity() < threshold) {
-            std::cout << "Warning: Low stock on " << ingredient.get_name() 
-                      << " (only " << ingredient.get_quantity() << " left)" << std::endl;
+void Inventory::restock(const std::string& ingredient, int amount) {
+    for (auto& item : ingredients) {
+        if (item.first == ingredient) {
+            item.second += amount;
+            std::cout << ingredient << " restocked. New quantity: " << item.second << std::endl;
+            return;
         }
     }
 }
 
-// Display the current status of the inventory
+// Display the current inventory
 void Inventory::display_inventory() const {
-    std::cout << "Current Inventory Status:" << std::endl;
+    std::cout << "Current Inventory:\n";
     for (const auto& ingredient : ingredients) {
-        std::cout << ingredient.get_name() << ": " 
-                  << ingredient.get_quantity() << " units remaining." << std::endl;
+        std::cout << ingredient.first << ": " << ingredient.second << " units remaining." << std::endl;
     }
-}
-
-// Helper function to find an ingredient by name
-Ingredient* Inventory::find_ingredient(const std::string& name) {
-    for (auto& ingredient : ingredients) {
-        if (ingredient.get_name() == name) {
-            return &ingredient;
-        }
-    }
-    return nullptr;  // Return nullptr if ingredient is not found
 }
