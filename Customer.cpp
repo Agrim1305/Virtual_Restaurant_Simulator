@@ -11,10 +11,8 @@ void Customer::place_order(const Menu& menu) {
     std::cout << "Select items to order (enter 0 to finish): ";
 
     while (std::cin >> choice && choice != 0) {
-        // Ensure the choice is within the valid range of menu items
         if (choice >= 1 && choice <= menu.get_items_size()) {
-            // Add the selected item to the customer's order
-            order.add_item(menu.get_item(choice - 1));  // 1-based to 0-based index
+            order.add_item(menu.get_item(choice - 1));  // Add selected item to the order
             std::cout << "Item added to order.\n";
         } else {
             std::cout << "Invalid selection. Please try again.\n";
@@ -29,6 +27,11 @@ Order Customer::get_order() const {
 
 float Customer::pay_bill() const {
     return order.calculate_total();
+}
+
+// Method to reset the order after serving
+void Customer::complete_order() {
+    order = Order();  // Reset the order to a new empty one
 }
 
 // Overloading the << operator for Customer class
