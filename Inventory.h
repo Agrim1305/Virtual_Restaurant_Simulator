@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <fstream>  // For file I/O
 
 class Inventory {
 private:
@@ -15,7 +16,10 @@ public:
     bool check_stock(const std::string& ingredient) const;
     void use_ingredient(const std::string& ingredient, int amount);
     void display_inventory() const;
-    void check_low_stock() const;  // New function to check and warn about low stock
+    
+    // New file I/O methods
+    void save_to_file(const std::string& filename) const;   // Save inventory to a file
+    void load_from_file(const std::string& filename);       // Load inventory from a file
 };
 
 #endif

@@ -2,27 +2,29 @@
 #define CUSTOMER_H
 
 #include "Order.h"
-#include "Menu.h"
+#include "Menu.h"  // Include the Menu class
+
 #include <string>
+#include <iostream>
+#include <fstream>  // For file I/O
 
 class Customer {
 private:
     std::string name;
     int table_number;
     Order order;
-    bool order_completed;
 
 public:
     Customer(const std::string& name, int table_number);
-
-    std::string get_name() const;
+    const std::string& get_name() const;
     int get_table_number() const;
-    void place_order(const Menu& menu);
-    const Order& get_order() const;
-    bool is_order_completed() const;
+    Order& get_order();
+    
+    void place_order(const Menu& menu);  // Menu is now recognized
     void complete_order();
 
-    friend std::ostream& operator<<(std::ostream& os, const Customer& customer);
+    // New method to save customer order to a file
+    void save_order_to_file(const std::string& filename) const;
 };
 
 #endif

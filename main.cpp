@@ -10,6 +10,24 @@
 #include "Manager.h"
 #include <iostream>
 #include <limits>
+#include <fstream>  // For reading saved orders
+
+// Function to display saved orders from the file
+void display_saved_orders(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening orders file!\n";
+        return;
+    }
+
+    std::cout << "==== Saved Orders ====\n";
+    std::string line;
+    while (std::getline(file, line)) {
+        std::cout << line << "\n";
+    }
+
+    file.close();
+}
 
 void display_menu() {
     std::cout << "==== Virtual Restaurant Simulator ====\n";
@@ -19,7 +37,10 @@ void display_menu() {
     std::cout << "4. Restock Inventory\n";
     std::cout << "5. View Inventory\n";
     std::cout << "6. Track Performance\n";
-    std::cout << "7. View Menu\n";  // New option to view the menu
+    std::cout << "7. View Menu\n";
+    std::cout << "8. Save Inventory & Menu to File\n";
+    std::cout << "9. Load Inventory & Menu from File\n";
+    std::cout << "10. View Saved Orders\n";
     std::cout << "0. Exit\n";
     std::cout << "Select an option: ";
 }
@@ -45,6 +66,7 @@ int main() {
         myRestaurant.add_employee(manager);
 
         Customer* currentCustomer = nullptr;
+        const std::string orders_file = "orders.txt";  // File to store orders
         int option;
 
         do {
@@ -54,19 +76,15 @@ int main() {
             switch (option) {
                 case 1: {
                     // Add customer and seat them
-                    if (currentCustomer != nullptr) {
-                        std::cout << "A customer is already seated. Complete their order first.\n";
-                        break;
-                    }
                     std::string name;
                     int table_number;
                     std::cout << "Enter customer name: ";
-                    std::cin.ignore(); // Clear the newline character from the input buffer
+                    std::cin.ignore();
                     std::getline(std::cin, name);
                     std::cout << "Enter table number: ";
                     std::cin >> table_number;
 
-                    currentCustomer = new Customer(name, table_number);  // Seat the customer
+                    currentCustomer = new Customer(name, table_number);
                     myRestaurant.seat_customer(*currentCustomer);
                     break;
                 }
@@ -80,17 +98,14 @@ int main() {
                     break;
                 }
                 case 3: {
-                    // Serve customer order
+                    // Serve customer order and save it to file
                     if (currentCustomer == nullptr) {
                         std::cout << "No customer is seated. Please seat a customer first.\n";
                         break;
                     }
-                    myRestaurant.serve_order(*currentCustomer);
-
-                    // After serving, delete the customer and mark the table as empty
+                    myRestaurant.serve_order(*currentCustomer, orders_file);
                     delete currentCustomer;
                     currentCustomer = nullptr;
-
                     break;
                 }
                 case 4: {
@@ -98,7 +113,7 @@ int main() {
                     std::string ingredient;
                     int quantity;
                     std::cout << "Enter ingredient to restock: ";
-                    std::cin.ignore(); // Clear the input buffer
+                    std::cin.ignore();
                     std::getline(std::cin, ingredient);
                     std::cout << "Enter quantity: ";
                     std::cin >> quantity;
@@ -121,6 +136,23 @@ int main() {
                     myRestaurant.view_menu();
                     break;
                 }
+                case 8: {
+                    // Save inventory and menu to file
+                    myRestaurant.get_inventory().save_to_file("inventory.txt");
+                    myRestaurant.get_menu().save_to_file("menu.txt");
+                    break;
+                }
+                case 9: {
+                    // Load inventory and menu from file
+                    myRestaurant.get_inventory().load_from_file("inventory.txt");
+                    myRestaurant.get_menu().load_from_file("menu.txt");
+                    break;
+                }
+                case 10: {
+                    // View saved orders
+                    display_saved_orders(orders_file);
+                    break;
+                }
                 case 0: {
                     std::cout << "Exiting program...\n";
                     break;
@@ -129,11 +161,6 @@ int main() {
                     std::cout << "Invalid option. Please try again.\n";
                     break;
                 }
-            }
-
-            // After each action, print customer order status (if any customer is seated)
-            if (currentCustomer != nullptr) {
-                std::cout << *currentCustomer;
             }
 
         } while (option != 0);

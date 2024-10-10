@@ -20,10 +20,12 @@ public:
     void add_employee(Employee* employee);
     void process_order(Customer& customer);
     void seat_customer(Customer& customer);
-    void serve_order(Customer& customer);
+    void serve_order(Customer& customer, const std::string& filename);
     void track_performance();
     void view_menu();
-    void add_menu_item(const MenuItem& item);  // New function to add menu items and ingredients
+
+    // New method to add a menu item
+    void add_menu_item(const MenuItem& item);
 };
 
 #endif

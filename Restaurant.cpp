@@ -31,9 +31,11 @@ void Restaurant::seat_customer(Customer& customer) {
     std::cout << "Customer has been seated.\n";
 }
 
-void Restaurant::serve_order(Customer& customer) {
+void Restaurant::serve_order(Customer& customer, const std::string& filename) {
     std::cout << "Serving customer order...\n";
     customer.complete_order();
+    customer.save_order_to_file(filename);
+
     std::cout << "Customer " << customer.get_name() << "'s order has been served.\n";
     std::cout << "Table " << customer.get_table_number() << " is now available.\n";
 }
@@ -54,12 +56,12 @@ void Restaurant::view_menu() {
     }
 }
 
-// New function to add menu items and automatically add related ingredients to inventory
+// Implementation of add_menu_item method
 void Restaurant::add_menu_item(const MenuItem& item) {
     menu.add_item(item);
     
-    // Automatically add the associated ingredient to the inventory with an initial stock
+    // Automatically restock the associated ingredient when a menu item is added
     if (!inventory.check_stock(item.get_ingredient())) {
-        inventory.restock(item.get_ingredient(), 10);  // Add 10 units of each new ingredient
+        inventory.restock(item.get_ingredient(), 10);  // Add 10 units of the ingredient
     }
 }

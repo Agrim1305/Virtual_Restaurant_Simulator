@@ -1,8 +1,26 @@
 #include "Order.h"
+#include "Menu.h"
 #include <iostream>
 
-void Order::add_item(const MenuItem& item) {
-    items.push_back(item);
+void Order::add_items_from_menu(const Menu& menu) {
+    int choice;
+    do {
+        menu.display_menu();
+        std::cout << "Select items to order (enter 0 to finish): ";
+        std::cin >> choice;
+
+        // Fix the signed/unsigned comparison
+        if (choice > 0 && static_cast<size_t>(choice) <= menu.get_items().size()) {
+            items.push_back(menu.get_items()[choice - 1]);
+            std::cout << "Item added to order.\n";
+        } else if (choice != 0) {
+            std::cout << "Invalid selection. Please try again.\n";
+        }
+    } while (choice != 0);
+}
+
+const std::vector<MenuItem>& Order::get_items() const {
+    return items;
 }
 
 float Order::calculate_total() const {
@@ -11,16 +29,4 @@ float Order::calculate_total() const {
         total += item.get_price();
     }
     return total;
-}
-
-const std::vector<MenuItem>& Order::get_items() const {
-    return items;
-}
-
-std::ostream& operator<<(std::ostream& os, const Order& order) {
-    for (const auto& item : order.items) {
-        os << "- " << item.get_name() << " : $" << item.get_price() << "\n";
-    }
-    os << "Total: $" << order.calculate_total() << "\n";
-    return os;
 }

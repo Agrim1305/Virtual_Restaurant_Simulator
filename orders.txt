@@ -1,0 +1,8 @@
+Customer Name: Agrim 
+Table Number: 1
+Order Summary:
+- Pasta : $12.99
+- Burger : $8.99
+- Salad : $6.99
+Total: $28.97
+-----------------------------------
