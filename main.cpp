@@ -37,8 +37,8 @@ int main() {
     myRestaurant.add_employee(waiter);
     myRestaurant.add_employee(manager);
 
-    // Create a test customer
-    Customer customer("John Doe", 1);
+    // Pointer to the current customer
+    Customer* currentCustomer = nullptr;
 
     int option;
     do {
@@ -46,20 +46,45 @@ int main() {
         std::cin >> option;
 
         switch (option) {
-            case 1:  // Seat customer
-                std::cout << "Seating customer...\n";
-                myRestaurant.seat_customer(customer);
+            case 1:  // Add customer and seat them
+            {
+                if (currentCustomer != nullptr) {
+                    std::cout << "A customer is already seated. Complete their order first.\n";
+                    break;
+                }
+                std::string name;
+                int table_number;
+                std::cout << "Enter customer name: ";
+                std::cin.ignore();  // Ignore any leftover newline character
+                std::getline(std::cin, name);  // Get full name
+                std::cout << "Enter table number: ";
+                std::cin >> table_number;
+                currentCustomer = new Customer(name, table_number);  // Create a new customer
+                myRestaurant.seat_customer(*currentCustomer);
                 break;
+            }
 
             case 2:  // Place customer order
+                if (currentCustomer == nullptr) {
+                    std::cout << "No customer seated. Please seat a customer first.\n";
+                    break;
+                }
                 std::cout << "Processing customer order...\n";
-                myRestaurant.process_order(customer);
-                std::cout << "Total bill: $" << customer.pay_bill() << std::endl;
+                myRestaurant.process_order(*currentCustomer);
+                std::cout << "Total bill: $" << currentCustomer->pay_bill() << std::endl;
                 break;
 
             case 3:  // Serve customer order
+                if (currentCustomer == nullptr) {
+                    std::cout << "No customer seated. Please seat a customer first.\n";
+                    break;
+                }
                 std::cout << "Serving customer order...\n";
-                myRestaurant.serve_order(customer);
+                myRestaurant.serve_order(*currentCustomer);
+                if (currentCustomer->is_order_completed()) {  // If the order is completed, reset the customer
+                    delete currentCustomer;  // Clean up the old customer
+                    currentCustomer = nullptr;  // Reset customer pointer
+                }
                 break;
 
             case 4:  // Restock inventory
@@ -94,15 +119,20 @@ int main() {
                 break;
         }
 
-        // Display the customer information (using operator overloading)
-        std::cout << customer;
+        if (currentCustomer != nullptr) {
+            // Display the customer information (using operator overloading)
+            std::cout << *currentCustomer;
+        }
 
     } while (option != 0);
 
-    // Clean up dynamically allocated employees
+    // Clean up dynamically allocated employees and customer if not completed
     delete chef;
     delete waiter;
     delete manager;
+    if (currentCustomer != nullptr) {
+        delete currentCustomer;
+    }
 
     return 0;
 }

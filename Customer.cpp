@@ -3,7 +3,7 @@
 #include <iostream>
 
 Customer::Customer(const std::string& name, int table_number)
-    : name(name), table_number(table_number) {}
+    : name(name), table_number(table_number), order_completed(false) {}
 
 void Customer::place_order(const Menu& menu) {
     int choice;
@@ -29,9 +29,15 @@ float Customer::pay_bill() const {
     return order.calculate_total();
 }
 
-// Method to reset the order after serving
+// Method to reset the order after serving and mark it as completed
 void Customer::complete_order() {
     order = Order();  // Reset the order to a new empty one
+    order_completed = true;  // Mark the order as completed
+}
+
+// Method to check if the order is completed
+bool Customer::is_order_completed() const {
+    return order_completed;
 }
 
 // Overloading the << operator for Customer class

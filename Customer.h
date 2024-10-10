@@ -11,6 +11,7 @@ class Customer {
     std::string name;
     int table_number;
     Order order;  // Customer's current order
+    bool order_completed;  // New flag to track if the order is completed
 
 public:
     Customer(const std::string& name, int table_number);
@@ -19,8 +20,8 @@ public:
     Order get_order() const;
     float pay_bill() const;
 
-    // New method to reset the order after serving
-    void complete_order();
+    void complete_order();  // Method to reset the order after serving
+    bool is_order_completed() const;  // New method to check if the order is completed
 
     // Overloading << operator to display customer information
     friend std::ostream& operator<<(std::ostream& os, const Customer& customer);
