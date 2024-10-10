@@ -1,25 +1,22 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
-#include "Person.h"
 #include <string>
 
-class Employee : public Person {
+class Employee {
 protected:
-    std::string position;
+    std::string name;
+    int id;
 
 public:
-    // Constructor for Employee
-    Employee(const std::string& name, int id, const std::string& position);
+    Employee(const std::string& name, int id);
+    virtual ~Employee() {}
 
-    // Virtual destructor to ensure proper cleanup of derived classes
-    virtual ~Employee() = default;
+    std::string get_name() const;
+    int get_id() const;
 
-    // Virtual function for task performance
-    virtual void perform_task() const = 0;
-
-    // Getter for position
-    std::string get_position() const;
+    // Pure virtual function for polymorphism
+    virtual void perform_task() const = 0;  // This makes Employee an abstract class
 };
 
 #endif

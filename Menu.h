@@ -3,7 +3,6 @@
 
 #include "MenuItem.h"
 #include <vector>
-#include <iostream>
 
 class Menu {
 private:
@@ -11,9 +10,7 @@ private:
 
 public:
     void add_item(const MenuItem& item);
-    void display_menu() const;
-    MenuItem get_item(int index) const;
-    int get_items_size() const;
+    const std::vector<MenuItem>& get_items() const;
 };
 
 #endif

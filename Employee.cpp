@@ -1,10 +1,11 @@
 #include "Employee.h"
 
-// Constructor for Employee, invoking the Person constructor
-Employee::Employee(const std::string& name, int id, const std::string& position)
-    : Person(name, id), position(position) {}
+Employee::Employee(const std::string& name, int id) : name(name), id(id) {}
 
-// Getter for position
-std::string Employee::get_position() const {
-    return position;
+std::string Employee::get_name() const {
+    return name;
+}
+
+int Employee::get_id() const {
+    return id;
 }

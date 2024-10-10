@@ -3,7 +3,7 @@
 
 #include "MenuItem.h"
 #include <vector>
-#include <iostream>
+#include <ostream>
 
 class Order {
 private:

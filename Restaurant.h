@@ -19,9 +19,9 @@ public:
     Inventory& get_inventory();
     void add_employee(Employee* employee);
     void process_order(Customer& customer);
-    void seat_customer(Customer& customer);   // Make sure this is declared
-    void serve_order(Customer& customer);     // Make sure this is declared
-    void track_performance();                 // Make sure this is declared
+    void seat_customer(Customer& customer);
+    void serve_order(Customer& customer);
+    void track_performance();
 };
 
 #endif

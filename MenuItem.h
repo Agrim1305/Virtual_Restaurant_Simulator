@@ -2,7 +2,6 @@
 #define MENUITEM_H
 
 #include <string>
-#include <stdexcept>
 
 class MenuItem {
 private:
@@ -10,10 +9,8 @@ private:
     float price;
     int prep_time;
     std::string main_ingredient;
-    int quantity;
 
 public:
-    // Constructor with validation
     MenuItem(const std::string& name, float price, int prep_time, const std::string& main_ingredient, int quantity);
 
     std::string get_name() const;

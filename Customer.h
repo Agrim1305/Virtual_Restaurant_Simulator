@@ -2,10 +2,8 @@
 #define CUSTOMER_H
 
 #include "Order.h"
+#include "Menu.h"
 #include <string>
-#include <iostream>
-
-class Menu;  // Forward declaration
 
 class Customer {
 private:
@@ -17,13 +15,13 @@ private:
 public:
     Customer(const std::string& name, int table_number);
 
+    std::string get_name() const;
+    int get_table_number() const;
     void place_order(const Menu& menu);
-    Order get_order() const;
-    float pay_bill() const;
-    void complete_order();
+    const Order& get_order() const;
     bool is_order_completed() const;
+    void complete_order();
 
-    // Overloading << operator
     friend std::ostream& operator<<(std::ostream& os, const Customer& customer);
 };
 

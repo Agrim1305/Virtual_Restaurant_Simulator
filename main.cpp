@@ -1,9 +1,13 @@
 #include "Restaurant.h"
+#include "Menu.h"
+#include "Inventory.h"
+#include "Employee.h"
+#include "Customer.h"
+#include "Table.h"
 #include "Chef.h"
 #include "HeadChef.h"
 #include "Waiter.h"
 #include "Manager.h"
-#include "Customer.h"
 #include <iostream>
 #include <limits>
 
@@ -28,6 +32,7 @@ int main() {
         myRestaurant.get_menu().add_item(MenuItem("Burger", 8.99, 10, "Beef Patty", 1));
         myRestaurant.get_menu().add_item(MenuItem("Salad", 6.99, 5, "Salad Greens", 1));
 
+        // Add employees
         Chef* chef = new Chef("Gordon Ramsay", 101);
         HeadChef* head_chef = new HeadChef("Jamie Oliver", 102);
         Waiter* waiter = new Waiter("John Smith", 201);
@@ -80,10 +85,11 @@ int main() {
                         break;
                     }
                     myRestaurant.serve_order(*currentCustomer);
-                    if (currentCustomer->is_order_completed()) {
-                        delete currentCustomer;
-                        currentCustomer = nullptr;
-                    }
+
+                    // After serving, delete the customer and mark the table as empty
+                    delete currentCustomer;
+                    currentCustomer = nullptr;
+
                     break;
                 }
                 case 4: {
@@ -135,10 +141,6 @@ int main() {
             delete currentCustomer;
         }
 
-    } catch (const std::length_error& e) {
-        std::cerr << "Length error: " << e.what() << std::endl;
-    } catch (const std::out_of_range& e) {
-        std::cerr << "Out of range error: " << e.what() << std::endl;
     } catch (const std::exception& e) {
         std::cerr << "An error occurred: " << e.what() << std::endl;
     }
