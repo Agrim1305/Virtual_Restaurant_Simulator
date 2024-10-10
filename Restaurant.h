@@ -5,30 +5,24 @@
 #include "Table.h"
 #include "Inventory.h"
 #include "Employee.h"
-#include "Customer.h"
 #include <vector>
 
 class Restaurant {
     Menu menu;
     Inventory inventory;
-    std::vector<Chef> chefs;
-    std::vector<Waiter> waiters;
-    Manager* manager;
+    std::vector<Employee*> employees;  // Store employees as pointers for polymorphism
 
 public:
-    Restaurant();  // Constructor
+    Restaurant();
 
     Menu& get_menu();
     Inventory& get_inventory();
 
-    void add_chef(const Chef& chef);  // Add chef
-    void add_waiter(const Waiter& waiter);  // Add waiter
-    void set_manager(Manager* manager);  // Set manager
-
-    void process_order(Customer& customer);  // Process customer order
-    void seat_customer(Customer& customer);  // Seat customer
-    void serve_order(Customer& customer);  // Serve order
-    void track_performance();  // Track performance
+    void add_employee(Employee* employee);  // Add employee (Chef, Waiter, Manager)
+    void process_order(Customer& customer);
+    void seat_customer(Customer& customer);
+    void serve_order(Customer& customer);
+    void track_performance();
 };
 
 #endif

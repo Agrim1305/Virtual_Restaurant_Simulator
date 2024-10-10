@@ -1,35 +1,30 @@
 #include "Menu.h"
 #include <iostream>
-#include <algorithm>  // Include the algorithm header for std::remove_if
+#include <stdexcept>
 
+// Add a menu item to the menu
 void Menu::add_item(const MenuItem& item) {
-    items.push_back(item);
+    items.push_back(item);  // Add the item to the items vector
 }
 
-void Menu::remove_item(const std::string& item_name) {
-    // Use std::remove_if to remove an item by name
-    items.erase(std::remove_if(items.begin(), items.end(),
-        [&item_name](const MenuItem& item) {
-            return item.get_name() == item_name;
-        }), items.end());
-}
-
+// Display the menu to the customer
 void Menu::display_menu() const {
-    for (int i = 0; i < items.size(); i++) {
-        std::cout << i + 1 << ". " << items[i].get_name() << " - $" 
-                  << items[i].get_price() << " (Prep time: " 
-                  << items[i].get_prep_time() << " mins)" << std::endl;
+    for (int i = 0; i < static_cast<int>(items.size()); i++) {  // Cast to fix signedness issue
+        std::cout << i + 1 << ". " << items[i].get_name() << " - $" << items[i].get_price()
+                  << " (Prep time: " << items[i].get_prep_time() << " mins)" << std::endl;
     }
 }
 
+// Retrieve a menu item by index
 MenuItem Menu::get_item(int index) const {
-    if (index < 0 || index >= items.size()) {
-        throw std::out_of_range("Invalid index");
+    if (index >= 0 && index < static_cast<int>(items.size())) {  // Cast to fix signedness issue
+        return items[index];
+    } else {
+        throw std::out_of_range("Invalid item selection.");
     }
-    return items[index];
 }
 
-// Add a method to return the number of items in the menu
+// Get the number of items in the menu
 int Menu::get_items_size() const {
     return items.size();
 }

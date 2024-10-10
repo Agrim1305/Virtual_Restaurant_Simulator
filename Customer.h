@@ -3,6 +3,7 @@
 
 #include "Order.h"
 #include <string>
+#include <iostream>
 
 class Menu;  // Forward declaration of the Menu class
 
@@ -17,6 +18,9 @@ public:
     void place_order(const Menu& menu);  // Reference to Menu class
     Order get_order() const;
     float pay_bill() const;
+
+    // Overloading << operator to display customer information
+    friend std::ostream& operator<<(std::ostream& os, const Customer& customer);
 };
 
 #endif

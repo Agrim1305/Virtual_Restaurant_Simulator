@@ -1,9 +1,13 @@
 #include "Restaurant.h"
 #include "Customer.h"
 #include "Menu.h"
+#include "Chef.h"
+#include "Waiter.h"
+#include "Manager.h"
 #include <iostream>
 #include <limits>
 
+// Function to display the main menu
 void display_menu() {
     std::cout << "==== Virtual Restaurant Simulator ====\n";
     std::cout << "1. Add Customer and Seat Them\n";
@@ -19,19 +23,19 @@ void display_menu() {
 int main() {
     Restaurant myRestaurant;
 
-    // Add items to the menu (with their ingredients)
+    // Add items to the menu
     myRestaurant.get_menu().add_item(MenuItem("Pasta", 12.99, 15, "Pasta", 1));
     myRestaurant.get_menu().add_item(MenuItem("Burger", 8.99, 10, "Beef Patty", 1));
     myRestaurant.get_menu().add_item(MenuItem("Salad", 6.99, 5, "Salad Greens", 1));
 
-    // Add employees to the restaurant
-    Chef chef1("Gordon Ramsay", 101);
-    Waiter waiter1("John Smith", 201);
-    Manager manager1("Lisa Johnson", 301);
+    // Create employees and add them to the restaurant
+    Chef* chef = new Chef("Gordon Ramsay", 101);
+    Waiter* waiter = new Waiter("John Smith", 201);
+    Manager* manager = new Manager("Lisa Johnson", 301);
 
-    myRestaurant.add_chef(chef1);
-    myRestaurant.add_waiter(waiter1);
-    myRestaurant.set_manager(&manager1);
+    myRestaurant.add_employee(chef);
+    myRestaurant.add_employee(waiter);
+    myRestaurant.add_employee(manager);
 
     // Create a test customer
     Customer customer("John Doe", 1);
@@ -42,23 +46,23 @@ int main() {
         std::cin >> option;
 
         switch (option) {
-            case 1:
+            case 1:  // Seat customer
                 std::cout << "Seating customer...\n";
                 myRestaurant.seat_customer(customer);
                 break;
 
-            case 2:
+            case 2:  // Place customer order
                 std::cout << "Processing customer order...\n";
                 myRestaurant.process_order(customer);
                 std::cout << "Total bill: $" << customer.pay_bill() << std::endl;
                 break;
 
-            case 3:
+            case 3:  // Serve customer order
                 std::cout << "Serving customer order...\n";
                 myRestaurant.serve_order(customer);
                 break;
 
-            case 4:
+            case 4:  // Restock inventory
             {
                 std::string ingredient;
                 int quantity;
@@ -71,17 +75,17 @@ int main() {
                 break;
             }
 
-            case 5:
+            case 5:  // View inventory
                 std::cout << "\nCurrent Inventory:\n";
                 myRestaurant.get_inventory().display_inventory();
                 break;
 
-            case 6:
+            case 6:  // Track performance
                 std::cout << "Tracking performance...\n";
                 myRestaurant.track_performance();
                 break;
 
-            case 0:
+            case 0:  // Exit
                 std::cout << "Exiting program...\n";
                 break;
 
@@ -90,7 +94,15 @@ int main() {
                 break;
         }
 
+        // Display the customer information (using operator overloading)
+        std::cout << customer;
+
     } while (option != 0);
+
+    // Clean up dynamically allocated employees
+    delete chef;
+    delete waiter;
+    delete manager;
 
     return 0;
 }

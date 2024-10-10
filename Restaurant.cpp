@@ -1,7 +1,7 @@
 #include "Restaurant.h"
 #include <iostream>
 
-Restaurant::Restaurant() : manager(nullptr) {}  // Default constructor
+Restaurant::Restaurant() {}
 
 Menu& Restaurant::get_menu() {
     return menu;
@@ -11,16 +11,8 @@ Inventory& Restaurant::get_inventory() {
     return inventory;
 }
 
-void Restaurant::add_chef(const Chef& chef) {
-    chefs.push_back(chef);
-}
-
-void Restaurant::add_waiter(const Waiter& waiter) {
-    waiters.push_back(waiter);
-}
-
-void Restaurant::set_manager(Manager* manager) {
-    this->manager = manager;
+void Restaurant::add_employee(Employee* employee) {
+    employees.push_back(employee);
 }
 
 void Restaurant::process_order(Customer& customer) {
@@ -47,8 +39,8 @@ void Restaurant::serve_order(Customer& customer) {
 }
 
 void Restaurant::track_performance() {
-    if (manager != nullptr) {
-        std::cout << "Manager is tracking performance...\n";
-        manager->perform_task();
+    std::cout << "Tracking employee performance...\n";
+    for (const auto& employee : employees) {
+        employee->perform_task();  // Call the overridden task using polymorphism
     }
 }

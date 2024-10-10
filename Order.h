@@ -3,18 +3,18 @@
 
 #include "MenuItem.h"
 #include <vector>
+#include <iostream>
 
 class Order {
     std::vector<MenuItem> items;
-    float total_cost;
 
 public:
     void add_item(const MenuItem& item);
     float calculate_total() const;
-    void display_order() const;
-    
-    // Add get_items method to return the list of items
-    std::vector<MenuItem> get_items() const;
+    const std::vector<MenuItem>& get_items() const;
+
+    // Overloading << operator
+    friend std::ostream& operator<<(std::ostream& os, const Order& order);
 };
 
 #endif
