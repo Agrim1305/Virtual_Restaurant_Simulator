@@ -19,6 +19,7 @@ void display_menu() {
     std::cout << "4. Restock Inventory\n";
     std::cout << "5. View Inventory\n";
     std::cout << "6. Track Performance\n";
+    std::cout << "7. View Menu\n";  // New option to view the menu
     std::cout << "0. Exit\n";
     std::cout << "Select an option: ";
 }
@@ -27,10 +28,10 @@ int main() {
     try {
         Restaurant myRestaurant;
 
-        // Add items to the menu
-        myRestaurant.get_menu().add_item(MenuItem("Pasta", 12.99, 15, "Pasta", 1));
-        myRestaurant.get_menu().add_item(MenuItem("Burger", 8.99, 10, "Beef Patty", 1));
-        myRestaurant.get_menu().add_item(MenuItem("Salad", 6.99, 5, "Salad Greens", 1));
+        // Add items to the menu and automatically add associated ingredients to the inventory
+        myRestaurant.add_menu_item(MenuItem("Pasta", 12.99, 15, "Pasta", 1));
+        myRestaurant.add_menu_item(MenuItem("Burger", 8.99, 10, "Beef Patty", 1));
+        myRestaurant.add_menu_item(MenuItem("Salad", 6.99, 5, "Salad Greens", 1));
 
         // Add employees
         Chef* chef = new Chef("Gordon Ramsay", 101);
@@ -113,6 +114,11 @@ int main() {
                 case 6: {
                     // Track performance
                     myRestaurant.track_performance();
+                    break;
+                }
+                case 7: {
+                    // View menu
+                    myRestaurant.view_menu();
                     break;
                 }
                 case 0: {

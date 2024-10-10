@@ -17,8 +17,8 @@ public:
     int get_quantity() const;
 
     void set_quantity(int quantity);
-    void use(int amount);
-    void restock(int amount);
+    void use(int amount);       // Decrease quantity when used
+    void restock(int amount);   // Increase quantity when restocked
 };
 
 #endif

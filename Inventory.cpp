@@ -19,11 +19,30 @@ void Inventory::use_ingredient(const std::string& ingredient_name, int amount) {
         throw std::out_of_range("Ingredient not found.");
     }
     stock[ingredient_name].use(amount);
+
+    // Check if ingredient is low after using
+    if (stock[ingredient_name].get_quantity() <= 5) {
+        std::cout << "Warning: Only " << stock[ingredient_name].get_quantity() 
+                  << " units of " << ingredient_name << " left. Please restock.\n";
+    }
 }
 
 void Inventory::display_inventory() const {
     std::cout << "Current Inventory:\n";
+    if (stock.empty()) {
+        std::cout << "No ingredients in the inventory.\n";
+    } else {
+        for (const auto& item : stock) {
+            std::cout << item.first << ": " << item.second.get_quantity() << " units\n";
+        }
+    }
+}
+
+void Inventory::check_low_stock() const {
     for (const auto& item : stock) {
-        std::cout << item.first << ": " << item.second.get_quantity() << " units\n";
+        if (item.second.get_quantity() <= 5) {
+            std::cout << "Warning: Low stock on " << item.first 
+                      << ". Only " << item.second.get_quantity() << " units left.\n";
+        }
     }
 }

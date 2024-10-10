@@ -14,7 +14,8 @@ public:
     void restock(const std::string& ingredient, int quantity);
     bool check_stock(const std::string& ingredient) const;
     void use_ingredient(const std::string& ingredient, int amount);
-    void display_inventory() const;  // Function to display the inventory
+    void display_inventory() const;
+    void check_low_stock() const;  // New function to check and warn about low stock
 };
 
 #endif

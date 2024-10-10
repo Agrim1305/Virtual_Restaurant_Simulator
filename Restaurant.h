@@ -22,6 +22,8 @@ public:
     void seat_customer(Customer& customer);
     void serve_order(Customer& customer);
     void track_performance();
+    void view_menu();
+    void add_menu_item(const MenuItem& item);  // New function to add menu items and ingredients
 };
 
 #endif
