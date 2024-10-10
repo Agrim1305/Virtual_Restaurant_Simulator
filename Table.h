@@ -1,17 +1,13 @@
 #ifndef TABLE_H
 #define TABLE_H
-#include "Customer.h"
 
 class Table {
-    int number;
-    bool is_occupied;
+private:
+    int table_number;
 
 public:
-    Table(int number);
-    void occupy(Customer& customer);
-    void vacate();
-    bool get_occupied_status() const;
-    int get_number() const;
+    Table(int table_number);
+    int get_table_number() const;
 };
 
 #endif

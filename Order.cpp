@@ -16,7 +16,6 @@ const std::vector<MenuItem>& Order::get_items() const {
     return items;
 }
 
-// Overloading << operator
 std::ostream& operator<<(std::ostream& os, const Order& order) {
     os << "Order Summary:\n";
     for (const auto& item : order.get_items()) {

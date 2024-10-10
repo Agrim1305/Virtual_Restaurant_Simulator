@@ -2,18 +2,24 @@
 #define EMPLOYEE_H
 
 #include "Person.h"
+#include <string>
 
 class Employee : public Person {
 protected:
-    std::string role;
+    std::string position;
 
 public:
-    Employee(const std::string& name, int id, const std::string& role);
+    // Constructor for Employee
+    Employee(const std::string& name, int id, const std::string& position);
 
-    virtual void perform_task() const = 0;  // Pure virtual function
-    std::string get_role() const;
+    // Virtual destructor to ensure proper cleanup of derived classes
+    virtual ~Employee() = default;
 
-    virtual ~Employee() {}  // Ensure proper cleanup
+    // Virtual function for task performance
+    virtual void perform_task() const = 0;
+
+    // Getter for position
+    std::string get_position() const;
 };
 
 #endif

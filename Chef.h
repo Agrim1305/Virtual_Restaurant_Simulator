@@ -7,7 +7,8 @@ class Chef : public Employee {
 public:
     Chef(const std::string& name, int id);
 
-    void perform_task() const override;  // Override the virtual function
+    // Override perform_task for Chef
+    void perform_task() const override;
 };
 
 #endif

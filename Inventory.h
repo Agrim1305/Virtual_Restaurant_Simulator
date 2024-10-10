@@ -1,22 +1,20 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
+#include "Ingredient.h"
+#include <map>
 #include <string>
-#include <vector>
-#include "MenuItem.h"
+#include <iostream>
 
 class Inventory {
-    std::vector<std::pair<std::string, int>> ingredients;  // Ingredients with their quantities
+private:
+    std::map<std::string, Ingredient> stock;
 
 public:
-    Inventory();
-
-    void add_ingredient(const std::string& ingredient, int quantity);
-    bool check_stock(const MenuItem& item);  // Check if there are enough ingredients
-    void use_ingredient(const MenuItem& item);  // Use ingredients when an item is ordered
-    void restock(const std::string& ingredient, int amount);
+    void restock(const std::string& ingredient, int quantity);
+    bool check_stock(const std::string& ingredient) const;
+    void use_ingredient(const std::string& ingredient, int amount);
     void display_inventory() const;
-    void notify_low_stock();  // Notify when ingredients are low (less than 5 units)
 };
 
 #endif

@@ -4,26 +4,24 @@
 #include "Menu.h"
 #include "Inventory.h"
 #include "Employee.h"
-#include "Customer.h"  // Include Customer class
-
+#include "Customer.h"
 #include <vector>
 
 class Restaurant {
-    Menu menu;  // The restaurant's menu
-    Inventory inventory;  // The restaurant's inventory
-    std::vector<Employee*> employees;  // List of employees (Chef, Waiter, Manager)
+private:
+    Menu menu;
+    Inventory inventory;
+    std::vector<Employee*> employees;
 
 public:
-    Restaurant();  // Default constructor
-
-    Menu& get_menu();  // Get the menu reference
-    Inventory& get_inventory();  // Get the inventory reference
-
-    void add_employee(Employee* employee);  // Add an employee (Chef, Waiter, Manager)
-    void process_order(Customer& customer);  // Process the order placed by a customer
-    void seat_customer(Customer& customer);  // Seat a customer in the restaurant
-    void serve_order(Customer& customer);  // Serve the customer's order
-    void track_performance();  // Track the performance of employees
+    Restaurant();
+    Menu& get_menu();
+    Inventory& get_inventory();
+    void add_employee(Employee* employee);
+    void process_order(Customer& customer);
+    void seat_customer(Customer& customer);   // Make sure this is declared
+    void serve_order(Customer& customer);     // Make sure this is declared
+    void track_performance();                 // Make sure this is declared
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include <iostream>
 
 class Order {
+private:
     std::vector<MenuItem> items;
 
 public:
@@ -13,7 +14,6 @@ public:
     float calculate_total() const;
     const std::vector<MenuItem>& get_items() const;
 
-    // Overloading << operator
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
 };
 

@@ -1,65 +1,42 @@
 #include "Inventory.h"
-#include <iostream>
 
-Inventory::Inventory() {
-    // Initialize inventory with some default quantities
-    ingredients.push_back({"Pasta", 10});
-    ingredients.push_back({"Burger Bun", 15});
-    ingredients.push_back({"Lettuce", 8});
-    ingredients.push_back({"Tomato", 10});
-    ingredients.push_back({"Beef Patty", 10});
-    ingredients.push_back({"Salad Greens", 12});
-}
-
-// Add a new ingredient to the inventory
-void Inventory::add_ingredient(const std::string& ingredient, int quantity) {
-    ingredients.push_back({ingredient, quantity});
-}
-
-// Check if enough ingredients are available for a menu item
-bool Inventory::check_stock(const MenuItem& item) {
-    for (auto& ingredient : ingredients) {
-        if (ingredient.first == item.get_ingredient() && ingredient.second >= item.get_ingredient_quantity()) {
-            return true;
-        }
+// Restock an ingredient in the inventory
+void Inventory::restock(const std::string& ingredient_name, int quantity) {
+    if (stock.find(ingredient_name) != stock.end()) {
+        stock[ingredient_name].restock(quantity);
+    } else {
+        // Add new ingredient if it's not already in stock
+        stock[ingredient_name] = Ingredient(ingredient_name, quantity);
     }
-    return false;
+
+    std::cout << "Restocked " << ingredient_name << " with " << quantity << " units.\n";
 }
 
-// Use ingredients when preparing a menu item
-void Inventory::use_ingredient(const MenuItem& item) {
-    for (auto& ingredient : ingredients) {
-        if (ingredient.first == item.get_ingredient()) {
-            if (ingredient.second >= item.get_ingredient_quantity()) {
-                ingredient.second -= item.get_ingredient_quantity();
-                std::cout << "Used " << item.get_ingredient_quantity() << " units of " << item.get_ingredient() 
-                          << ". Remaining: " << ingredient.second << std::endl;
+// Check if the ingredient is in stock and has sufficient quantity
+bool Inventory::check_stock(const std::string& ingredient_name) const {
+    auto it = stock.find(ingredient_name);
+    return (it != stock.end() && it->second.get_quantity() > 0);
+}
 
-                if (ingredient.second < 5) {
-                    std::cout << "Warning: " << ingredient.first << " is low in stock!" << std::endl;
-                }
-            } else {
-                std::cout << "Not enough stock of " << item.get_ingredient() << "!" << std::endl;
-            }
-        }
+// Use an ingredient from the inventory
+void Inventory::use_ingredient(const std::string& ingredient_name, int amount) {
+    if (stock.find(ingredient_name) == stock.end()) {
+        throw std::out_of_range("Ingredient " + ingredient_name + " not found in inventory.");
     }
-}
 
-// Restock ingredients
-void Inventory::restock(const std::string& ingredient, int amount) {
-    for (auto& item : ingredients) {
-        if (item.first == ingredient) {
-            item.second += amount;
-            std::cout << ingredient << " restocked. New quantity: " << item.second << std::endl;
-            return;
-        }
+    stock[ingredient_name].use(amount);
+    std::cout << "Used " << amount << " units of " << ingredient_name << ". Remaining: " 
+              << stock[ingredient_name].get_quantity() << "\n";
+
+    if (stock[ingredient_name].get_quantity() < 5) {
+        std::cout << "Warning: Low stock on " << ingredient_name << "!\n";
     }
 }
 
 // Display the current inventory
 void Inventory::display_inventory() const {
     std::cout << "Current Inventory:\n";
-    for (const auto& ingredient : ingredients) {
-        std::cout << ingredient.first << ": " << ingredient.second << " units remaining." << std::endl;
+    for (const auto& item : stock) {
+        std::cout << item.first << ": " << item.second.get_quantity() << " units\n";
     }
 }

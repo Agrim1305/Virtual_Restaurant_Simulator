@@ -1,18 +1,7 @@
 #include "Table.h"
-Table::Table(int number) : number(number), is_occupied(false) {}
 
-void Table::occupy(Customer& customer) {
-    is_occupied = true;
-}
+Table::Table(int table_number) : table_number(table_number) {}
 
-void Table::vacate() {
-    is_occupied = false;
-}
-
-bool Table::get_occupied_status() const {
-    return is_occupied;
-}
-
-int Table::get_number() const {
-    return number;
+int Table::get_table_number() const {
+    return table_number;
 }

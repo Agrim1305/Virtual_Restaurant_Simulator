@@ -7,7 +7,8 @@ class Manager : public Employee {
 public:
     Manager(const std::string& name, int id);
 
-    void perform_task() const override;  // Override the virtual function
+    // Override perform_task for Manager
+    void perform_task() const override;
 };
 
 #endif
