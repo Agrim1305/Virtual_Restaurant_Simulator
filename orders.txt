@@ -29,3 +29,10 @@ Order Summary:
 - Salad : $6.99
 Total: $28.97
 -----------------------------------
+Customer Name: shreya
+Table Number: 1
+Order Summary:
+- Quesadilla : $7.99
+- Milkshake : $4.99
+Total: $12.98
+-----------------------------------
