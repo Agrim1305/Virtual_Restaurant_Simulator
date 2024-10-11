@@ -3,15 +3,18 @@
 
 #include <string>
 
+// Declaration of the abstract base class 'Employee'
 class Employee {
 protected:
-    std::string name;
-    int id;
+    std::string name;  // Stores the name of the employee
+    int id;            // Stores the employee's ID
 
 public:
+//Initializes the Employee's name and ID
     Employee(const std::string& name, int id);
     virtual ~Employee() {}
 
+// Method to return the Employee's name
     std::string get_name() const;
     int get_id() const;
 
