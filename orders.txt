@@ -6,3 +6,18 @@ Order Summary:
 - Salad : $6.99
 Total: $28.97
 -----------------------------------
+Customer Name: Agrim
+Table Number: 3
+Order Summary:
+- Pasta : $12.99
+- Burger : $8.99
+Total: $21.98
+-----------------------------------
+Customer Name: agrim
+Table Number: 7
+Order Summary:
+- Pasta : $12.99
+- Burger : $8.99
+- Pasta : $12.99
+Total: $34.97
+-----------------------------------
