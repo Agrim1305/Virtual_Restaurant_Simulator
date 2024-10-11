@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include <iostream>
 
+// Adds items to the order from the provided menu
 void Order::add_items_from_menu(const Menu& menu) {
     int choice;
     do {
@@ -23,10 +24,11 @@ const std::vector<MenuItem>& Order::get_items() const {
     return items;
 }
 
+// Calculates the total cost of all items in the order
 float Order::calculate_total() const {
     float total = 0;
     for (const auto& item : items) {
-        total += item.get_price();
+        total += item.get_price(); // Adds the price of each item in the total
     }
     return total;
 }
