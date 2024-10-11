@@ -53,3 +53,13 @@ Item: Pasta, Price: $12.99
 Item: Burger, Price: $8.99
 Item: Salad, Price: $6.99
 Total: $28.97
+Customer Name: Agrim
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Total: $28.97
+Customer Name: Agrim
+Table Number: 2
+Item: Burger, Price: $8.99
+Total: $8.99
