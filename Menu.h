@@ -5,11 +5,14 @@
 #include <vector>
 #include <string>  // For file operations
 
+// Declaration of the Menu class to manage a list of menu items
 class Menu {
 private:
+// Vector to store a list of menu items
     std::vector<MenuItem> items;
 
 public:
+  // Method to add a new item and to return a constant reference to the list of menu items
     void add_item(const MenuItem& item);
     const std::vector<MenuItem>& get_items() const;
 
