@@ -1,25 +1,31 @@
 #include "Restaurant.h"
 #include <iostream>
 
+// Constructor for the Restaurant class
 Restaurant::Restaurant() {}
 
 Menu& Restaurant::get_menu() {
     return menu;
 }
 
+ // Method to return a reference to the restaurant's inventory
 Inventory& Restaurant::get_inventory() {
     return inventory;
 }
 
+// Adds a new employee to the restaurant's list of employees
 void Restaurant::add_employee(Employee* employee) {
     employees.push_back(employee);
 }
 
+// Processes the customer's order based upon the menu and inventory
+// For each item in the order, checks if there are enough ingredients in stock
+// If ingredients are available, it uses the required amount from the inventory
 void Restaurant::process_order(Customer& customer) {
     customer.place_order(menu);
     for (const auto& item : customer.get_order().get_items()) {
         if (inventory.check_stock(item.get_ingredient())) {
-            inventory.use_ingredient(item.get_ingredient(), 1);
+            inventory.use_ingredient(item.get_ingredient(), 1); // Use 1 unit of the ingredient
         } else {
             std::cout << "Not enough ingredients to prepare " << item.get_name() << "!\n";
         }
@@ -27,10 +33,12 @@ void Restaurant::process_order(Customer& customer) {
     std::cout << "Order has been processed.\n";
 }
 
+// Seats a customer in the restaurant
 void Restaurant::seat_customer(Customer& customer) {
     std::cout << "Customer has been seated.\n";
 }
 
+// Serves a customer's order and saves the order details to a file
 void Restaurant::serve_order(Customer& customer, const std::string& filename) {
     std::cout << "Serving customer order...\n";
     customer.complete_order();
@@ -40,6 +48,7 @@ void Restaurant::serve_order(Customer& customer, const std::string& filename) {
     std::cout << "Table " << customer.get_table_number() << " is now available.\n";
 }
 
+// Tracks the performance of all employees
 void Restaurant::track_performance() {
     std::cout << "Tracking performance of employees...\n";
     for (const auto& employee : employees) {
@@ -47,6 +56,7 @@ void Restaurant::track_performance() {
     }
 }
 
+// Displays the Current Menu 
 void Restaurant::view_menu() {
     std::cout << "Current Menu:\n";
     const auto& items = menu.get_items();
