@@ -14,6 +14,13 @@
 #include <memory>  // For smart pointers
 #include <algorithm> // For std::transform
 
+// Helper function to trim whitespace from both ends of a string
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(' ');
+    size_t last = str.find_last_not_of(' ');
+    return (first == std::string::npos || last == std::string::npos) ? "" : str.substr(first, last - first + 1);
+}
+
 // Function to display saved orders from the file
 void display_saved_orders(const std::string& filename) {
     std::ifstream file(filename);
@@ -46,13 +53,6 @@ void display_menu() {
     std::cout << "10. View Saved Orders\n";
     std::cout << "0. Exit\n";
     std::cout << "Select an option: ";
-}
-
-// Helper function to trim whitespace from both ends of a string
-std::string trim(const std::string& str) {
-    size_t first = str.find_first_not_of(' ');
-    size_t last = str.find_last_not_of(' ');
-    return (first == std::string::npos || last == std::string::npos) ? "" : str.substr(first, last - first + 1);
 }
 
 // Function to initialize the inventory with default items
@@ -185,33 +185,70 @@ int main() {
                         std::string ingredient;
                         int quantity;
 
-                        // Keep asking for a valid ingredient until the input is correct
+                        // Keep asking for a valid ingredient or exit if 0 is entered
                         while (true) {
                             try {
-                                std::cout << "Enter ingredient to restock: ";
-                                std::cin.ignore();  // Clear buffer
+                                std::cin.ignore();  // Clear buffer before getting input
+                                std::cout << "Enter ingredient to restock (or 0 to go back): ";
                                 std::getline(std::cin, ingredient);
 
-                                // Trim whitespace
+                                // Trim whitespace from user input
                                 ingredient = trim(ingredient);
 
-                                // Check if the ingredient exists in the inventory
-                                if (!myRestaurant.get_inventory().ingredient_exists(ingredient)) {
+                                // Convert the input to lowercase for case-insensitive matching
+                                std::transform(ingredient.begin(), ingredient.end(), ingredient.begin(), ::tolower);
+
+                                // Check if the user wants to go back to the main menu
+                                if (ingredient == "0") {
+                                    std::cout << "Returning to main menu...\n";
+                                    break;
+                                }
+
+                                // Check if the ingredient exists in the inventory by converting the stored ingredients to lowercase
+                                bool ingredient_found = false;
+                                std::string matched_ingredient;
+                                for (const auto& item : myRestaurant.get_inventory().get_stock()) {
+                                    std::string lower_item = item.first;
+                                    std::transform(lower_item.begin(), lower_item.end(), lower_item.begin(), ::tolower);
+                                    if (lower_item == ingredient) {
+                                        ingredient_found = true;
+                                        matched_ingredient = item.first;
+                                        break;
+                                    }
+                                }
+
+                                // If ingredient does not exist, show the inventory and prompt again
+                                if (!ingredient_found) {
                                     std::cout << "Ingredient does not exist. Available ingredients are:\n";
-                                    myRestaurant.get_inventory().display_inventory();  // Display the inventory for reference
+                                    myRestaurant.get_inventory().display_inventory();
                                     throw std::invalid_argument("Please enter a valid ingredient.");
                                 }
 
                                 // Input the quantity
-                                std::cout << "Enter quantity: ";
-                                std::cin >> quantity;
+                                std::cout << "Enter quantity (or 0 to go back): ";
+                                if (!(std::cin >> quantity)) {
+                                    std::cin.clear();
+                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                    std::cout << "Invalid input. Please enter a valid number for quantity.\n";
+                                    continue;
+                                }
 
-                                // Restock the ingredient
-                                myRestaurant.get_inventory().restock(ingredient, quantity);
-                                break;  // Exit the loop when successful
+                                // If quantity is 0, go back to the main menu
+                                if (quantity == 0) {
+                                    std::cout << "Returning to main menu...\n";
+                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                    break;
+                                }
+
+                                // Restock the ingredient with the matched name from the inventory
+                                myRestaurant.get_inventory().restock(matched_ingredient, quantity);
+                                std::cout << "Restocked " << matched_ingredient << " with " << quantity << " units.\n";
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                break;
 
                             } catch (const std::invalid_argument& e) {
-                                std::cout << e.what() << "\n";  // Display the error message
+                                std::cout << e.what() << "\n";
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             }
                         }
                         break;
