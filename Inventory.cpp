@@ -2,13 +2,18 @@
 #include <iostream>
 #include <fstream>
 
+// Check if an ingredient exists in the inventory
+bool Inventory::ingredient_exists(const std::string& ingredient_name) const {
+    return stock.find(ingredient_name) != stock.end();
+}
+
 // Restock the inventory with a specified quantity of an ingredient
 // If the ingredient is already in stock, update its quantity; otherwise, add a new ingredient
 void Inventory::restock(const std::string& ingredient_name, int quantity, bool silent) {
     if (stock.find(ingredient_name) != stock.end()) {
         stock[ingredient_name].restock(quantity);
     } else {
-        stock[ingredient_name] = Ingredient(ingredient_name, quantity);
+        throw std::invalid_argument("Ingredient does not exist in the inventory.");
     }
 
     // Only print the restock message if silent mode is off

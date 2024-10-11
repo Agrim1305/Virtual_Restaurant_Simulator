@@ -28,6 +28,9 @@ public:
 
     // Load inventory from a file
     void load_from_file(const std::string& filename);
+
+    // Check if an ingredient exists in the inventory
+    bool ingredient_exists(const std::string& ingredient_name) const;  // New method
 };
 
 #endif
