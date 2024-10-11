@@ -1,20 +1,15 @@
 #include "Inventory.h"
-#include "Ingredient.h"
 #include <iostream>
 #include <fstream>
-#include <stdexcept>
 
-// Define the restock method for Inventory class
+// Restock the inventory with a specified quantity of an ingredient
 void Inventory::restock(const std::string& ingredient_name, int quantity, bool silent) {
-    // Check if the ingredient exists in the inventory
     if (stock.find(ingredient_name) != stock.end()) {
-        stock[ingredient_name].restock(quantity);  // Restock existing ingredient
+        stock[ingredient_name].restock(quantity);
     } else {
-        // If ingredient does not exist, add it to the inventory
         stock[ingredient_name] = Ingredient(ingredient_name, quantity);
     }
 
-    // If not in silent mode, print the restocking information
     if (!silent) {
         std::cout << "Restocked " << ingredient_name << " with " << quantity << " units.\n";
     }
@@ -38,9 +33,8 @@ void Inventory::use_ingredient(const std::string& ingredient_name, int amount) {
     }
     stock[ingredient_name].use(amount);
 
-    // Check if the remaining quantity is low and display a warning message if necessary
     if (stock[ingredient_name].get_quantity() <= 5) {
-        std::cout << "Warning: Only " << stock[ingredient_name].get_quantity() 
+        std::cout << "Warning: Only " << stock[ingredient_name].get_quantity()
                   << " units of " << ingredient_name << " left. Please restock.\n";
     }
 }

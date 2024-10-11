@@ -126,3 +126,9 @@ Item: Garlic Bread, Price: $3.99
 Item: Pizza, Price: $14.99
 Total: $47.95
 >>>>>>> 73c611bd30edbab276a452737ba66d12c04f2d77
+Customer Name: Agrim
+Table Number: 2
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Total: $28.97
