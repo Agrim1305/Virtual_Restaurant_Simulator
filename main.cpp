@@ -10,7 +10,16 @@
 #include "Manager.h"
 #include <iostream>
 #include <limits>
-#include <fstream>  // For reading saved orders
+#include <fstream>
+#include <memory>  // For smart pointers
+#include <algorithm> // For std::transform
+
+// Helper function to trim whitespace from both ends of a string
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(' ');
+    size_t last = str.find_last_not_of(' ');
+    return (first == std::string::npos || last == std::string::npos) ? "" : str.substr(first, last - first + 1);
+}
 
 // Function to display saved orders from the file
 void display_saved_orders(const std::string& filename) {
@@ -45,7 +54,8 @@ void display_menu() {
     std::cout << "0. Exit\n";
     std::cout << "Select an option: ";
 }
-// Function to initialize the inventory with some default items
+
+// Function to initialize the inventory with default items
 void initialize_inventory(Restaurant& restaurant) {
     restaurant.get_inventory().restock("Pasta", 10, true);
     restaurant.get_inventory().restock("Beef Patty", 10, true);
@@ -67,6 +77,7 @@ void initialize_inventory(Restaurant& restaurant) {
     restaurant.get_inventory().restock("Fruit", 10, true);
     restaurant.get_inventory().restock("Lemon", 10, true);
 }
+
 int main() {
     try {
         Restaurant myRestaurant;
@@ -103,17 +114,17 @@ int main() {
         initialize_inventory(myRestaurant);
 
         // Add employees
-        Chef* chef = new Chef("Gordon Ramsay", 101);
-        HeadChef* head_chef = new HeadChef("Jamie Oliver", 102);
-        Waiter* waiter = new Waiter("John Smith", 201);
-        Manager* manager = new Manager("Lisa Johnson", 301);
+        std::unique_ptr<Chef> chef = std::make_unique<Chef>("Gordon Ramsay", 101);
+        std::unique_ptr<HeadChef> head_chef = std::make_unique<HeadChef>("Jamie Oliver", 102);
+        std::unique_ptr<Waiter> waiter = std::make_unique<Waiter>("John Smith", 201);
+        std::unique_ptr<Manager> manager = std::make_unique<Manager>("Lisa Johnson", 301);
 
-        myRestaurant.add_employee(chef);
-        myRestaurant.add_employee(head_chef);
-        myRestaurant.add_employee(waiter);
-        myRestaurant.add_employee(manager);
+        myRestaurant.add_employee(chef.get());
+        myRestaurant.add_employee(head_chef.get());
+        myRestaurant.add_employee(waiter.get());
+        myRestaurant.add_employee(manager.get());
 
-        Customer* currentCustomer = nullptr;
+        std::unique_ptr<Customer> currentCustomer = nullptr;
         const std::string orders_file = "orders.txt";  // File to store orders
         int option;
 
@@ -121,106 +132,173 @@ int main() {
             display_menu();      // Display the main menu
             std::cin >> option;  // Get the user's option choice
 
-            switch (option) {
-                case 1: {
-                    // Add customer and seat them
-                    std::string name;
-                    int table_number;
-                    std::cout << "Enter customer name: ";
-                    std::cin.ignore();
-                    std::getline(std::cin, name);
-                    std::cout << "Enter table number: ";
-                    std::cin >> table_number;
+            // Check for input failure (non-integer input)
+            if (std::cin.fail()) {
+                std::cin.clear();  // Clear the input state
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Discard invalid input
+                std::cout << "Invalid input, please enter a number.\n";
+                continue;  // Skip the rest of the loop
+            }
 
-                    currentCustomer = new Customer(name, table_number);
-                    myRestaurant.seat_customer(*currentCustomer);
-                    break;
-                }
-                case 2: {
-                    // Place customer order
-                    if (currentCustomer == nullptr) {
-                        std::cout << "No customer is seated. Please seat a customer first.\n";
+            try {
+                switch (option) {
+                    case 1: {
+                        if (currentCustomer != nullptr) {
+                            std::cout << "A customer is already seated. Please serve them first.\n";
+                            break;
+                        }
+
+                        // Add customer and seat them
+                        std::string name;
+                        int table_number;
+                        std::cout << "Enter customer name: ";
+                        std::cin.ignore();  // Clear buffer
+                        std::getline(std::cin, name);
+                        std::cout << "Enter table number: ";
+                        std::cin >> table_number;
+
+                        currentCustomer = std::make_unique<Customer>(name, table_number);
+                        myRestaurant.seat_customer(*currentCustomer);
                         break;
                     }
-                    myRestaurant.process_order(*currentCustomer);
-                    break;
-                }
-                case 3: {
-                    // Serve customer order and save it to file
-                    if (currentCustomer == nullptr) {
-                        std::cout << "No customer is seated. Please seat a customer first.\n";
+                    case 2: {
+                        // Place customer order
+                        if (currentCustomer == nullptr) {
+                            std::cout << "No customer is seated. Please seat a customer first.\n";
+                            break;
+                        }
+                        myRestaurant.process_order(*currentCustomer);
                         break;
                     }
-                    myRestaurant.serve_order(*currentCustomer, orders_file);
-                    delete currentCustomer;
-                    currentCustomer = nullptr;
-                    break;
-                }
-                case 4: {
-                    // Restock inventory
-                    std::string ingredient;
-                    int quantity;
-                    std::cout << "Enter ingredient to restock: ";
-                    std::cin.ignore();
-                    std::getline(std::cin, ingredient);
-                    std::cout << "Enter quantity: ";
-                    std::cin >> quantity;
+                    case 3: {
+                        // Serve customer order and save it to file
+                        if (currentCustomer == nullptr) {
+                            std::cout << "No customer is seated. Please seat a customer first.\n";
+                            break;
+                        }
+                        myRestaurant.serve_order(*currentCustomer, orders_file);
+                        currentCustomer = nullptr;  // Remove the customer after serving
+                        break;
+                    }
+                    case 4: {
+                        // Restock inventory
+                        std::string ingredient;
+                        int quantity;
 
-                    myRestaurant.get_inventory().restock(ingredient, quantity);
-                    break;
+                        // Keep asking for a valid ingredient or exit if 0 is entered
+                        while (true) {
+                            try {
+                                std::cin.ignore();  // Clear buffer before getting input
+                                std::cout << "Enter ingredient to restock (or 0 to go back): ";
+                                std::getline(std::cin, ingredient);
+
+                                // Trim whitespace from user input
+                                ingredient = trim(ingredient);
+
+                                // Convert the input to lowercase for case-insensitive matching
+                                std::transform(ingredient.begin(), ingredient.end(), ingredient.begin(), ::tolower);
+
+                                // Check if the user wants to go back to the main menu
+                                if (ingredient == "0") {
+                                    std::cout << "Returning to main menu...\n";
+                                    break;
+                                }
+
+                                // Check if the ingredient exists in the inventory by converting the stored ingredients to lowercase
+                                bool ingredient_found = false;
+                                std::string matched_ingredient;
+                                for (const auto& item : myRestaurant.get_inventory().get_stock()) {
+                                    std::string lower_item = item.first;
+                                    std::transform(lower_item.begin(), lower_item.end(), lower_item.begin(), ::tolower);
+                                    if (lower_item == ingredient) {
+                                        ingredient_found = true;
+                                        matched_ingredient = item.first;
+                                        break;
+                                    }
+                                }
+
+                                // If ingredient does not exist, show the inventory and prompt again
+                                if (!ingredient_found) {
+                                    std::cout << "Ingredient does not exist. Available ingredients are:\n";
+                                    myRestaurant.get_inventory().display_inventory();
+                                    throw std::invalid_argument("Please enter a valid ingredient.");
+                                }
+
+                                // Input the quantity
+                                std::cout << "Enter quantity (or 0 to go back): ";
+                                if (!(std::cin >> quantity)) {
+                                    std::cin.clear();
+                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                    std::cout << "Invalid input. Please enter a valid number for quantity.\n";
+                                    continue;
+                                }
+
+                                // If quantity is 0, go back to the main menu
+                                if (quantity == 0) {
+                                    std::cout << "Returning to main menu...\n";
+                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                    break;
+                                }
+
+                                // Restock the ingredient with the matched name from the inventory
+                                myRestaurant.get_inventory().restock(matched_ingredient, quantity);
+                                std::cout << "Restocked " << matched_ingredient << " with " << quantity << " units.\n";
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                break;
+
+                            } catch (const std::invalid_argument& e) {
+                                std::cout << e.what() << "\n";
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            }
+                        }
+                        break;
+                    }
+                    case 5: {
+                        // View inventory
+                        myRestaurant.get_inventory().display_inventory();
+                        break;
+                    }
+                    case 6: {
+                        // Track performance
+                        myRestaurant.track_performance();
+                        break;
+                    }
+                    case 7: {
+                        // View menu
+                        myRestaurant.view_menu();
+                        break;
+                    }
+                    case 8: {
+                        // Save inventory and menu to file
+                        myRestaurant.get_inventory().save_to_file("inventory.txt");
+                        myRestaurant.get_menu().save_to_file("menu.txt");
+                        break;
+                    }
+                    case 9: {
+                        // Load inventory and menu from file
+                        myRestaurant.get_inventory().load_from_file("inventory.txt");
+                        myRestaurant.get_menu().load_from_file("menu.txt");
+                        break;
+                    }
+                    case 10: {
+                        // View saved orders
+                        display_saved_orders(orders_file);
+                        break;
+                    }
+                    case 0: {
+                        std::cout << "Exiting program...\n";
+                        break;
+                    }
+                    default: {
+                        std::cout << "Invalid option. Please try again.\n";
+                        break;
+                    }
                 }
-                case 5: {
-                    // View inventory
-                    myRestaurant.get_inventory().display_inventory();
-                    break;
-                }
-                case 6: {
-                    // Track performance
-                    myRestaurant.track_performance();
-                    break;
-                }
-                case 7: {
-                    // View menu
-                    myRestaurant.view_menu();
-                    break;
-                }
-                case 8: {
-                    // Save inventory and menu to file
-                    myRestaurant.get_inventory().save_to_file("inventory.txt");
-                    myRestaurant.get_menu().save_to_file("menu.txt");
-                    break;
-                }
-                case 9: {
-                    // Load inventory and menu from file
-                    myRestaurant.get_inventory().load_from_file("inventory.txt");
-                    myRestaurant.get_menu().load_from_file("menu.txt");
-                    break;
-                }
-                case 10: {
-                    // View saved orders
-                    display_saved_orders(orders_file);
-                    break;
-                }
-                case 0: {
-                    std::cout << "Exiting program...\n";
-                    break;
-                }
-                default: {
-                    std::cout << "Invalid option. Please try again.\n";
-                    break;
-                }
+            } catch (const std::exception& e) {
+                std::cerr << "An error occurred: " << e.what() << "\n";
             }
 
         } while (option != 0);
-
-        // Cleanup dynamically allocated objects
-        delete chef;
-        delete head_chef;
-        delete waiter;
-        delete manager;
-        if (currentCustomer != nullptr) {
-            delete currentCustomer;
-        }
 
     } catch (const std::exception& e) {
         std::cerr << "An error occurred: " << e.what() << std::endl;

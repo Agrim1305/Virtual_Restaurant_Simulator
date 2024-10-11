@@ -1,5 +1,6 @@
 #include "Order.h"
 #include <iostream>
+#include <fstream>  // For file I/O operations
 
 void Order::add_items_from_menu(const Menu& menu) {
     int choice;
@@ -33,4 +34,20 @@ float Order::calculate_total() const {
         total += item.get_price();
     }
     return total;
+}
+
+// Method to save the order to a file
+void Order::save_to_file(std::ofstream& file) const {
+    if (!file.is_open()) {
+        std::cerr << "File is not open for writing.\n";
+        return;
+    }
+    
+    // Save each item in the order to the file
+    for (const auto& item : items) {
+        file << "Item: " << item.get_name() << ", Price: $" << item.get_price() << "\n";
+    }
+
+    // Save the total to the file
+    file << "Total: $" << calculate_total() << "\n";
 }

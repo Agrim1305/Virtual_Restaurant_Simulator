@@ -47,6 +47,7 @@ Order Summary:
 Total: $32.96
 >>>>>>> ecad7cc219c0e7960523f86eb9ffefd4441c8d0f
 -----------------------------------
+<<<<<<< HEAD
 Customer Name: Niyati
 Table Number: 2
 Order Summary:
@@ -63,3 +64,65 @@ Table Number: 4
 Order Summary:
 Total: $0
 -----------------------------------
+=======
+Customer Name: Agrim
+Table Number: 2
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Total: $28.97
+Customer Name: Agrim
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Total: $28.97
+Customer Name: Agrim
+Table Number: 2
+Item: Burger, Price: $8.99
+Total: $8.99
+Customer Name: Agrim
+Table Number: 2
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Item: Garlic Bread, Price: $3.99
+Item: Garlic Bread, Price: $3.99
+Item: Pizza, Price: $14.99
+Item: Sushi, Price: $19.99
+Item: Tacos, Price: $7.99
+Total: $79.92
+Customer Name: Agrim
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Item: Garlic Bread, Price: $3.99
+Item: Pizza, Price: $14.99
+Item: Sushi, Price: $19.99
+Item: Tacos, Price: $7.99
+Item: Spring Rolls, Price: $6.99
+Total: $82.92
+Customer Name: Agrim
+Table Number: 2
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Item: Garlic Bread, Price: $3.99
+Total: $32.96
+Customer Name: Agrim
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Item: Garlic Bread, Price: $3.99
+Total: $32.96
+Customer Name: Agrim
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Item: Garlic Bread, Price: $3.99
+Item: Pizza, Price: $14.99
+Total: $47.95
+>>>>>>> 73c611bd30edbab276a452737ba66d12c04f2d77

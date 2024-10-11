@@ -8,6 +8,9 @@
 #include <iostream>
 #include <fstream>  // For file I/O
 
+// Forward declaration of the trim function
+std::string trim(const std::string& str);
+
 class Customer {
 private:
     std::string name;

@@ -1,14 +1,13 @@
 #include "Ingredient.h"
+#include <iostream>
 
 // Initializes the ingredient's name and quantity using the provided arguments
-// Throws an exception if the name is empty or quantity is negative
-
 Ingredient::Ingredient(const std::string& name, int quantity)
     : name(name), quantity(quantity) {
     if (name.empty()) {
         throw std::length_error("Ingredient name cannot be empty.");
     }
-    if (quantity < 0) { // Check if the quantity is negative
+    if (quantity < 0) {
         throw std::invalid_argument("Quantity cannot be negative.");
     }
 }
@@ -23,16 +22,32 @@ int Ingredient::get_quantity() const {
     return quantity;
 }
 
-// Method to update the quantity of the ingredient
+// Method to update the quantity of the ingredient, with a maximum limit of 15 units
 void Ingredient::set_quantity(int new_quantity) {
     if (new_quantity < 0) {
         throw std::invalid_argument("Quantity cannot be negative.");
     }
-    quantity = new_quantity;
+    if (new_quantity > 15) {
+        std::cout << "Stock cannot exceed 15 units. Restocking to 15 units.\n";
+        quantity = 15;
+    } else {
+        quantity = new_quantity;
+    }
 }
 
-//Method to use a specified amount of the ingredient
-// Throws an exception if the usage amount is not positive or if it exceeds available quantity
+// Method to restock the ingredient by adding a specified amount
+// Throws a warning if the stock goes below 5 units
+void Ingredient::restock(int amount) {
+    if (amount <= 0) {
+        throw std::invalid_argument("Restock amount must be positive.");
+    }
+    set_quantity(quantity + amount);
+    if (quantity < 5) {
+        std::cout << "Warning: Stock for " << name << " is below 5 units.\n";
+    }
+}
+
+// Method to use a specified amount of the ingredient
 void Ingredient::use(int amount) {
     if (amount <= 0) {
         throw std::invalid_argument("Usage amount must be positive.");
@@ -40,14 +55,5 @@ void Ingredient::use(int amount) {
     if (amount > quantity) {
         throw std::out_of_range("Not enough ingredient in stock.");
     }
-    quantity -= amount; // Decrease the quantity by the specified amount
-}
-
-// Method to restock the ingredient by adding a specified amount
-void Ingredient::restock(int amount) {
-    if (amount <= 0) {
-        throw std::invalid_argument("Restock amount must be positive.");
-    }
-    quantity += amount; // Increase the quantity by the specified amount
-
+    quantity -= amount;
 }
