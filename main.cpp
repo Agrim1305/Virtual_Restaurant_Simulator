@@ -29,6 +29,7 @@ void display_saved_orders(const std::string& filename) {
     file.close();
 }
 
+// Function to display the main menu of options for the Virtual Restaurant Simulator
 void display_menu() {
     std::cout << "==== Virtual Restaurant Simulator ====\n";
     std::cout << "1. Add Customer and Seat Them\n";
@@ -70,8 +71,8 @@ int main() {
         int option;
 
         do {
-            display_menu();
-            std::cin >> option;
+            display_menu();      // Display the main menu
+            std::cin >> option;  // Get the user's option choice
 
             switch (option) {
                 case 1: {
