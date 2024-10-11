@@ -11,8 +11,8 @@
 #include <iostream>
 #include <limits>
 #include <fstream>
-#include <memory>  // For smart pointers
-#include <algorithm> // For std::transform
+#include <memory>
+#include <algorithm>
 
 // Helper function to trim whitespace from both ends of a string
 std::string trim(const std::string& str) {
@@ -240,9 +240,18 @@ int main() {
                                     break;
                                 }
 
+                                // Check the maximum stock before restocking
+                                if (myRestaurant.get_inventory().get_stock().at(matched_ingredient).get_quantity() + quantity > 15) {
+                                    std::cout << "Warning: Stock for " << matched_ingredient << " capped at 15 units. ";
+                                    quantity = 15 - myRestaurant.get_inventory().get_stock().at(matched_ingredient).get_quantity();
+                                    if (quantity < 0) {
+                                        quantity = 0; // Prevent negative restocking
+                                    }
+                                    std::cout << "Restocked " << matched_ingredient << " up to " << quantity << " units.\n";
+                                }
+
                                 // Restock the ingredient with the matched name from the inventory
                                 myRestaurant.get_inventory().restock(matched_ingredient, quantity);
-                                std::cout << "Restocked " << matched_ingredient << " with " << quantity << " units.\n";
                                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                                 break;
 

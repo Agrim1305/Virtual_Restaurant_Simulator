@@ -22,12 +22,17 @@ int Ingredient::get_quantity() const {
     return quantity;
 }
 
-// Method to update the quantity of the ingredient
+// Method to update the quantity of the ingredient, with a maximum limit of 15 units
 void Ingredient::set_quantity(int new_quantity) {
     if (new_quantity < 0) {
         throw std::invalid_argument("Quantity cannot be negative.");
     }
-    quantity = new_quantity;
+    if (new_quantity > 15) {
+        std::cout << "Warning: Stock for " << name << " capped at 15 units. Setting to 15 units.\n";
+        quantity = 15;
+    } else {
+        quantity = new_quantity;
+    }
 }
 
 // Method to restock the ingredient by adding a specified amount

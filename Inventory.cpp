@@ -2,6 +2,11 @@
 #include <iostream>
 #include <fstream>
 
+// Check if an ingredient exists in the inventory
+bool Inventory::ingredient_exists(const std::string& ingredient_name) const {
+    return stock.find(ingredient_name) != stock.end();
+}
+
 // Restock the inventory with a specified quantity of an ingredient
 void Inventory::restock(const std::string& ingredient_name, int quantity, bool silent) {
     if (stock.find(ingredient_name) != stock.end()) {
@@ -13,11 +18,6 @@ void Inventory::restock(const std::string& ingredient_name, int quantity, bool s
     if (!silent) {
         std::cout << "Restocked " << ingredient_name << " with " << quantity << " units.\n";
     }
-}
-
-// Check if an ingredient exists in the inventory
-bool Inventory::ingredient_exists(const std::string& ingredient_name) const {
-    return stock.find(ingredient_name) != stock.end();
 }
 
 // Check if an ingredient is in stock and if its quantity is greater than zero
@@ -34,7 +34,7 @@ void Inventory::use_ingredient(const std::string& ingredient_name, int amount) {
     stock[ingredient_name].use(amount);
 
     if (stock[ingredient_name].get_quantity() <= 5) {
-        std::cout << "Warning: Only " << stock[ingredient_name].get_quantity()
+        std::cout << "Warning: Only " << stock[ingredient_name].get_quantity() 
                   << " units of " << ingredient_name << " left. Please restock.\n";
     }
 }
