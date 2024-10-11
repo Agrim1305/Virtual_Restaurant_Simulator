@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 Beef Patty,10
 Bread,10
+=======
+Beef Patty,9
+Bread,9
+>>>>>>> ecad7cc219c0e7960523f86eb9ffefd4441c8d0f
 Cabbage,10
 Cheese,10
 Chicken,10
@@ -9,6 +14,7 @@ Dough,10
 Fruit,10
 Ice Cream,10
 Lemon,10
+<<<<<<< HEAD
 Milk,9
 Pasta,10
 Potatoes,10
@@ -17,3 +23,13 @@ Salad Greens,10
 Soda Syrup,10
 Tea Leaves,10
 Tortilla,11
+=======
+Milk,10
+Pasta,9
+Potatoes,10
+Rice,10
+Salad Greens,9
+Soda Syrup,10
+Tea Leaves,10
+Tortilla,10
+>>>>>>> ecad7cc219c0e7960523f86eb9ffefd4441c8d0f

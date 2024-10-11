@@ -1,32 +1,36 @@
 #include "Inventory.h"
+#include <iostream>
+#include <fstream>
 
 // Restock the inventory with a specified quantity of an ingredient
 // If the ingredient is already in stock, update its quantity; otherwise, add a new ingredient
-void Inventory::restock(const std::string& ingredient_name, int quantity) {
+void Inventory::restock(const std::string& ingredient_name, int quantity, bool silent) {
     if (stock.find(ingredient_name) != stock.end()) {
         stock[ingredient_name].restock(quantity);
     } else {
         stock[ingredient_name] = Ingredient(ingredient_name, quantity);
     }
-    std::cout << "Restocked " << ingredient_name << " with " << quantity << " units.\n";
+
+    // Only print the restock message if silent mode is off
+    if (!silent) {
+        std::cout << "Restocked " << ingredient_name << " with " << quantity << " units.\n";
+    }
 }
 
 // Check if an ingredient is in stock and if its quantity is greater than zero
-// Returns true if the ingredient is available in the inventory; otherwise, false
 bool Inventory::check_stock(const std::string& ingredient_name) const {
     auto it = stock.find(ingredient_name);
     return (it != stock.end() && it->second.get_quantity() > 0);
 }
 
 // Use a specified amount of an ingredient from the inventory
-// Throws an exception if the ingredient is not found or if there is insufficient quantity
 void Inventory::use_ingredient(const std::string& ingredient_name, int amount) {
     if (stock.find(ingredient_name) == stock.end()) {
         throw std::out_of_range("Ingredient not found.");
     }
     stock[ingredient_name].use(amount);
 
- // Check if the remaining quantity is low and display a warning message if necessary
+    // Check if the remaining quantity is low and display a warning message if necessary
     if (stock[ingredient_name].get_quantity() <= 5) {
         std::cout << "Warning: Only " << stock[ingredient_name].get_quantity() 
                   << " units of " << ingredient_name << " left. Please restock.\n";
@@ -69,6 +73,8 @@ void Inventory::load_from_file(const std::string& filename) {
         return;
     }
 
+    stock.clear();  // Clear current stock before loading
+
     std::string ingredient;
     int quantity;
     char separator;  // For handling the comma separator
@@ -77,6 +83,6 @@ void Inventory::load_from_file(const std::string& filename) {
         stock[ingredient] = Ingredient(ingredient, quantity);
     }
 
-    file.close(); // Close the file 
+    file.close();
     std::cout << "Inventory loaded from " << filename << ".\n";
 }

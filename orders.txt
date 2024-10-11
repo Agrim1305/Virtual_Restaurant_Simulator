@@ -29,10 +29,21 @@ Order Summary:
 - Salad : $6.99
 Total: $28.97
 -----------------------------------
+<<<<<<< HEAD
 Customer Name: shreya
 Table Number: 1
 Order Summary:
 - Quesadilla : $7.99
 - Milkshake : $4.99
 Total: $12.98
+=======
+Customer Name: Agrim
+Table Number: 1
+Order Summary:
+- Pasta : $12.99
+- Burger : $8.99
+- Salad : $6.99
+- Garlic Bread : $3.99
+Total: $32.96
+>>>>>>> ecad7cc219c0e7960523f86eb9ffefd4441c8d0f
 -----------------------------------
