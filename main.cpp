@@ -45,12 +45,33 @@ void display_menu() {
     std::cout << "0. Exit\n";
     std::cout << "Select an option: ";
 }
-
+// Function to initialize the inventory with some default items
+void initialize_inventory(Restaurant& restaurant) {
+    restaurant.get_inventory().restock("Pasta", 10, true);
+    restaurant.get_inventory().restock("Beef Patty", 10, true);
+    restaurant.get_inventory().restock("Salad Greens", 10, true);
+    restaurant.get_inventory().restock("Bread", 10, true);
+    restaurant.get_inventory().restock("Dough", 10, true);
+    restaurant.get_inventory().restock("Rice", 10, true);
+    restaurant.get_inventory().restock("Tortilla", 10, true);
+    restaurant.get_inventory().restock("Cabbage", 10, true);
+    restaurant.get_inventory().restock("Potatoes", 10, true);
+    restaurant.get_inventory().restock("Chicken", 10, true);
+    restaurant.get_inventory().restock("Chocolate", 10, true);
+    restaurant.get_inventory().restock("Cheese", 10, true);
+    restaurant.get_inventory().restock("Ice Cream", 10, true);
+    restaurant.get_inventory().restock("Coffee Beans", 10, true);
+    restaurant.get_inventory().restock("Tea Leaves", 10, true);
+    restaurant.get_inventory().restock("Soda Syrup", 10, true);
+    restaurant.get_inventory().restock("Milk", 10, true);
+    restaurant.get_inventory().restock("Fruit", 10, true);
+    restaurant.get_inventory().restock("Lemon", 10, true);
+}
 int main() {
     try {
         Restaurant myRestaurant;
 
-        // Add food items to the menu and automatically add associated ingredients to the inventory
+        // Add food items to the menu without restocking the inventory automatically
         myRestaurant.add_menu_item(MenuItem("Pasta", 12.99, 15, "Pasta", 1));
         myRestaurant.add_menu_item(MenuItem("Burger", 8.99, 10, "Beef Patty", 1));
         myRestaurant.add_menu_item(MenuItem("Salad", 6.99, 5, "Salad Greens", 1));
@@ -77,6 +98,9 @@ int main() {
         myRestaurant.add_menu_item(MenuItem("Milkshake", 4.99, 8, "Milk", 1));
         myRestaurant.add_menu_item(MenuItem("Smoothie", 5.99, 7, "Fruit", 1));
         myRestaurant.add_menu_item(MenuItem("Lemonade", 3.49, 6, "Lemon", 1));
+
+        // Initialize inventory with default stock
+        initialize_inventory(myRestaurant);
 
         // Add employees
         Chef* chef = new Chef("Gordon Ramsay", 101);

@@ -1,3 +1,19 @@
 Beef Patty,9
+Bread,9
+Cabbage,10
+Cheese,10
+Chicken,10
+Chocolate,10
+Coffee Beans,10
+Dough,10
+Fruit,10
+Ice Cream,10
+Lemon,10
+Milk,10
 Pasta,9
+Potatoes,10
+Rice,10
 Salad Greens,9
+Soda Syrup,10
+Tea Leaves,10
+Tortilla,10

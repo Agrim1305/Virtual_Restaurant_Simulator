@@ -29,3 +29,12 @@ Order Summary:
 - Salad : $6.99
 Total: $28.97
 -----------------------------------
+Customer Name: Agrim
+Table Number: 1
+Order Summary:
+- Pasta : $12.99
+- Burger : $8.99
+- Salad : $6.99
+- Garlic Bread : $3.99
+Total: $32.96
+-----------------------------------

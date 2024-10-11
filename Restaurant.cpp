@@ -8,7 +8,7 @@ Menu& Restaurant::get_menu() {
     return menu;
 }
 
- // Method to return a reference to the restaurant's inventory
+// Method to return a reference to the restaurant's inventory
 Inventory& Restaurant::get_inventory() {
     return inventory;
 }
@@ -56,7 +56,7 @@ void Restaurant::track_performance() {
     }
 }
 
-// Displays the Current Menu 
+// Displays the current menu
 void Restaurant::view_menu() {
     std::cout << "Current Menu:\n";
     const auto& items = menu.get_items();
@@ -70,8 +70,5 @@ void Restaurant::view_menu() {
 void Restaurant::add_menu_item(const MenuItem& item) {
     menu.add_item(item);
     
-    // Automatically restock the associated ingredient when a menu item is added
-    if (!inventory.check_stock(item.get_ingredient())) {
-        inventory.restock(item.get_ingredient(), 10);  // Add 10 units of the ingredient
-    }
+    // No stock checking or restocking during menu initialization
 }
