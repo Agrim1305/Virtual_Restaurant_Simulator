@@ -50,10 +50,33 @@ int main() {
     try {
         Restaurant myRestaurant;
 
-        // Add items to the menu and automatically add associated ingredients to the inventory
+        // Add food items to the menu and automatically add associated ingredients to the inventory
         myRestaurant.add_menu_item(MenuItem("Pasta", 12.99, 15, "Pasta", 1));
         myRestaurant.add_menu_item(MenuItem("Burger", 8.99, 10, "Beef Patty", 1));
         myRestaurant.add_menu_item(MenuItem("Salad", 6.99, 5, "Salad Greens", 1));
+        myRestaurant.add_menu_item(MenuItem("Garlic Bread", 3.99, 5, "Bread", 1));
+        myRestaurant.add_menu_item(MenuItem("Pizza", 14.99, 20, "Dough", 1));
+        myRestaurant.add_menu_item(MenuItem("Sushi", 19.99, 25, "Rice", 1));
+        myRestaurant.add_menu_item(MenuItem("Tacos", 7.99, 10, "Tortilla", 1));
+        myRestaurant.add_menu_item(MenuItem("Spring Rolls", 6.99, 10, "Cabbage", 1));
+        myRestaurant.add_menu_item(MenuItem("French Fries", 4.99, 7, "Potatoes", 1));
+        myRestaurant.add_menu_item(MenuItem("Chicken Wings", 9.99, 15, "Chicken", 1));
+        myRestaurant.add_menu_item(MenuItem("Burrito", 12.99, 12, "Tortilla", 1));
+        myRestaurant.add_menu_item(MenuItem("Quesadilla", 7.99, 12, "Tortilla", 1));
+        myRestaurant.add_menu_item(MenuItem("Grilled Cheese Sandwich", 5.99, 8, "Bread", 1));
+
+        // Add some desserts
+        myRestaurant.add_menu_item(MenuItem("Chocolate Cake", 8.99, 15, "Chocolate", 1));
+        myRestaurant.add_menu_item(MenuItem("Cheesecake", 5.99, 20, "Cheese", 1));
+        myRestaurant.add_menu_item(MenuItem("Ice Cream Sundae", 4.99, 10, "Ice Cream", 1));
+
+        // Add some drinks to the menu
+        myRestaurant.add_menu_item(MenuItem("Coffee", 2.99, 5, "Coffee Beans", 1));
+        myRestaurant.add_menu_item(MenuItem("Tea", 2.49, 4, "Tea Leaves", 1));
+        myRestaurant.add_menu_item(MenuItem("Soda", 1.99, 2, "Soda Syrup", 1));
+        myRestaurant.add_menu_item(MenuItem("Milkshake", 4.99, 8, "Milk", 1));
+        myRestaurant.add_menu_item(MenuItem("Smoothie", 5.99, 7, "Fruit", 1));
+        myRestaurant.add_menu_item(MenuItem("Lemonade", 3.49, 6, "Lemon", 1));
 
         // Add employees
         Chef* chef = new Chef("Gordon Ramsay", 101);
