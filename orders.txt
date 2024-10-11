@@ -47,3 +47,19 @@ Order Summary:
 Total: $32.96
 >>>>>>> ecad7cc219c0e7960523f86eb9ffefd4441c8d0f
 -----------------------------------
+Customer Name: Niyati
+Table Number: 2
+Order Summary:
+- Salad : $6.99
+- Pizza : $14.99
+- Sushi : $19.99
+- Tacos : $7.99
+- Burger : $8.99
+- Salad : $6.99
+Total: $65.94
+-----------------------------------
+Customer Name: Rahul
+Table Number: 4
+Order Summary:
+Total: $0
+-----------------------------------
