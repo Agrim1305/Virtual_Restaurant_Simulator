@@ -1,0 +1,109 @@
+Virtual Restaurant Simulator - Test Cases
+
+1. Menu Operations:
+   a. Test Case: Add new menu item
+      Steps:
+        - Add a new menu item (e.g., "Pizza", price: 14.99, prep_time: 20 mins).
+        - Verify that the menu contains the new item.
+      Expected Result: The new menu item should be listed in the menu.
+      Actual Result: The item "Pizza" is successfully added and listed.
+
+   b. Test Case: Display the menu
+      Steps:
+        - Display the restaurant's menu.
+      Expected Result: The menu should display all items with their name, price, and prep time.
+      Actual Result: The terminal displays a list of menu items like:
+        "1. Pasta - $12.99 (Prep time: 15 mins)"
+        "2. Burger - $8.99 (Prep time: 10 mins)"
+
+   c. Test Case: Save the menu to file
+      Steps:
+        - Save the current menu to a file (menu.txt).
+        - Check the file content for correctness.
+      Expected Result: The menu should be saved in the correct format in the file.
+      Actual Result: The file "menu.txt" is created with correct data.
+
+2. Order Management:
+   a. Test Case: Place an order
+      Steps:
+        - Seat a customer.
+        - Place an order from the menu (e.g., customer orders "Burger").
+      Expected Result: The order should be processed, and the customer order should be listed.
+      Actual Result: The terminal displays "Item added to order." and lists the ordered items.
+
+   b. Test Case: Process an order
+      Steps:
+        - Process the customer's order.
+        - Verify the inventory has enough stock for the ordered items.
+      Expected Result: The order should be processed, and the stock should be deducted from inventory.
+      Actual Result: The terminal displays "Order has been processed." and deducts stock for ingredients.
+
+   c. Test Case: Serve an order
+      Steps:
+        - Serve the completed order to the customer.
+        - Save the order to a file (orders.txt).
+      Expected Result: The order should be marked as served, and the table should be freed.
+      Actual Result: The terminal displays "Order has been served." and the file "orders.txt" is updated with the order.
+
+3. Inventory Operations:
+   a. Test Case: Restock ingredients
+      Steps:
+        - Restock an ingredient (e.g., add 10 units of "Beef Patty").
+        - Verify the inventory is updated.
+      Expected Result: The ingredient quantity should be increased.
+      Actual Result: The terminal displays "Restocked Beef Patty with 10 units."
+
+   b. Test Case: Check inventory stock
+      Steps:
+        - Check if an ingredient is available in the inventory.
+      Expected Result: Should return whether the ingredient is in stock.
+      Actual Result: The terminal displays either "Ingredient is in stock." or "Not enough stock."
+
+   c. Test Case: Save and load inventory from file
+      Steps:
+        - Save the current inventory to a file (inventory.txt).
+        - Load the inventory from the saved file and verify correctness.
+      Expected Result: The inventory should be saved and reloaded correctly.
+      Actual Result: The file "inventory.txt" is created and loaded correctly, with inventory data matching.
+
+4. Employee Functions:
+   a. Test Case: Add employees
+      Steps:
+        - Add multiple employees (e.g., Chef, Waiter, Manager).
+        - Verify they are added to the employee list.
+      Expected Result: All employees should be successfully added to the restaurant.
+      Actual Result: The terminal displays messages like "Chef Gordon Ramsay added."
+
+   b. Test Case: Track employee performance
+      Steps:
+        - Track the performance of employees (e.g., chef performs task, waiter serves food).
+      Expected Result: Each employee should perform their respective task correctly.
+      Actual Result: The terminal displays messages like "Waiter John Smith is serving food to customers."
+
+5. Customer Interaction:
+   a. Test Case: Seat a customer
+      Steps:
+        - Add a new customer and seat them at a table.
+      Expected Result: The customer should be seated at the specified table.
+      Actual Result: The terminal displays "Customer has been seated."
+
+   b. Test Case: Save customer order
+      Steps:
+        - Place an order and save it to a file (orders.txt).
+      Expected Result: The order should be saved with the correct details.
+      Actual Result: The file "orders.txt" is updated with the order details.
+
+6. File Operations:
+   a. Test Case: Save and load menu from file
+      Steps:
+        - Save the menu to a file (menu.txt).
+        - Load the menu from the file and verify that all items are correct.
+      Expected Result: The menu should be correctly saved and loaded.
+      Actual Result: The terminal displays "Menu saved to menu.txt" and loads the menu items correctly.
+
+   b. Test Case: Save and load orders from file
+      Steps:
+        - Save the orders to a file (orders.txt).
+        - Load the orders from the file and verify correctness.
+      Expected Result: Orders should be correctly saved and loaded from the file.
+      Actual Result: The terminal displays "Orders saved to orders.txt" and loads the correct order details.
