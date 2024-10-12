@@ -11,8 +11,8 @@
 #include <iostream>
 #include <limits>
 #include <fstream>
-#include <memory>
-#include <algorithm>
+#include <memory>  // For smart pointers
+#include <algorithm> // For std::transform
 
 // Helper function to trim whitespace from both ends of a string
 std::string trim(const std::string& str) {
@@ -225,39 +225,41 @@ int main() {
                                 }
 
                                 // Input the quantity
-                                std::cout << "Enter quantity (or 0 to go back): ";
-                                if (!(std::cin >> quantity)) {
-                                    std::cin.clear();
-                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                                    std::cout << "Invalid input. Please enter a valid number for quantity.\n";
-                                    continue;
-                                }
-
-                                // If quantity is 0, go back to the main menu
-                                if (quantity == 0) {
-                                    std::cout << "Returning to main menu...\n";
-                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                                    break;
-                                }
-
-                                // Check the maximum stock before restocking
-                                if (myRestaurant.get_inventory().get_stock().at(matched_ingredient).get_quantity() + quantity > 15) {
-                                    std::cout << "Warning: Stock for " << matched_ingredient << " capped at 15 units. ";
-                                    quantity = 15 - myRestaurant.get_inventory().get_stock().at(matched_ingredient).get_quantity();
-                                    if (quantity < 0) {
-                                        quantity = 0; // Prevent negative restocking
+                                while (true) {
+                                    std::cout << "Enter quantity (or 0 to go back): ";
+                                    if (!(std::cin >> quantity)) {  // Check if the input is a valid integer
+                                        std::cin.clear();  // Clear the error state
+                                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Discard invalid input
+                                        std::cout << "Invalid input. Please enter a valid number for quantity.\n";
+                                        continue;  // Ask again
                                     }
-                                    std::cout << "Restocked " << matched_ingredient << " up to " << quantity << " units.\n";
+
+                                    // If quantity is 0, go back to the main menu
+                                    if (quantity == 0) {
+                                        std::cout << "Returning to main menu...\n";
+                                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the newline character from the input buffer
+                                        break;
+                                    }
+
+                                    // Check the maximum stock before restocking
+                                    if (myRestaurant.get_inventory().get_stock().at(matched_ingredient).get_quantity() + quantity > 15) {
+                                        std::cout << "Warning: Stock for " << matched_ingredient << " capped at 15 units. ";
+                                        std::cout << "Please enter a valid quantity to restock (up to " << (15 - myRestaurant.get_inventory().get_stock().at(matched_ingredient).get_quantity()) << "): \n";
+                                        continue;  // Ask for the quantity again
+                                    }
+
+                                    // Restock the ingredient with the matched name from the inventory
+                                    myRestaurant.get_inventory().restock(matched_ingredient, quantity);
+                                    std::cout << "Restocked " << matched_ingredient << " with " << quantity << " units.\n";
+                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the newline character from the input buffer
+                                    break;  // Exit the loop when successful
                                 }
 
-                                // Restock the ingredient with the matched name from the inventory
-                                myRestaurant.get_inventory().restock(matched_ingredient, quantity);
-                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                                break;
+                                break;  // Exit the outer loop after successful restocking
 
                             } catch (const std::invalid_argument& e) {
-                                std::cout << e.what() << "\n";
-                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                std::cout << e.what() << "\n";  // Display the error message
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ensure the input buffer is cleared
                             }
                         }
                         break;

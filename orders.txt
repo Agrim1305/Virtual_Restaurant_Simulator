@@ -132,3 +132,30 @@ Item: Pasta, Price: $12.99
 Item: Burger, Price: $8.99
 Item: Salad, Price: $6.99
 Total: $28.97
+Customer Name: Agrim
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Garlic Bread, Price: $3.99
+Item: Pizza, Price: $14.99
+Item: Sushi, Price: $19.99
+Item: Garlic Bread, Price: $3.99
+Item: Pizza, Price: $14.99
+Item: Spring Rolls, Price: $6.99
+Item: Sushi, Price: $19.99
+Item: Pizza, Price: $14.99
+Total: $121.9
+Customer Name: AG
+Table Number: 2
+Item: Pizza, Price: $14.99
+Item: Pizza, Price: $14.99
+Item: Pizza, Price: $14.99
+Item: Pizza, Price: $14.99
+Item: Pizza, Price: $14.99
+Item: Pizza, Price: $14.99
+Item: Pizza, Price: $14.99
+Total: $104.93
+Customer Name: Ag
+Table Number: 4
+Item: Pizza, Price: $14.99
+Total: $14.99
