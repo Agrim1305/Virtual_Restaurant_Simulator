@@ -1,0 +1,22 @@
+Customer Name: John
+Table Number: 3
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Total: $44.95
+Customer Name: Jaya
+Table Number: 2
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Total: $44.95
+Customer Name: Abhi
+Table Number: 3
+Item: Lemonade, Price: $3.49
+Item: Burger, Price: $8.99
+Item: Burger, Price: $8.99
+Total: $21.47
