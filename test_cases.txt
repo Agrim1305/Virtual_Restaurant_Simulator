@@ -107,3 +107,200 @@ Virtual Restaurant Simulator - Test Cases
         - Load the orders from the file and verify correctness.
       Expected Result: Orders should be correctly saved and loaded from the file.
       Actual Result: The terminal displays "Orders saved to orders.txt" and loads the correct order details.
+
+
+REAL LIFE SCENARIO 
+
+Test Case 1: Adding a Customer and Placing an Order
+Scenario:
+A customer named John enters the restaurant, is seated at table 3, and orders a Burger. The manager processes and serves the order. Afterward, the table is freed.
+Step 1: Add a customer and seat them
+
+Action: The manager selects the option to add and seat a customer.
+Input:
+Enter customer name: John
+Enter table number: 3
+Expected Output: 
+Customer has been seated at table 3.
+
+Step 2: Place an order for the customer
+
+Action: The manager selects the option to place an order for John.
+Input:
+Menu:
+1. Pasta - $12.99 (Prep time: 15 mins)
+2. Burger - $8.99 (Prep time: 10 mins)
+3. Salad - $6.99 (Prep time: 5 mins)
+Select items to order (enter 0 to finish): 2
+Expected Output: 
+Item added to order.
+Select items to order (enter 0 to finish): 0
+
+Step 3: Process the order
+
+Action: The manager processes the order.
+Expected Output:
+Processing order for customer John...
+Ingredients for Burger are available.
+Order has been processed.
+
+Step 4: Serve the order
+
+Action: The manager serves John’s order.
+Expected Output:
+Serving customer order...
+Customer John's order has been served.
+Table 3 is now available.
+
+Test Case 2: Invalid Order and Error Handling
+Scenario:
+A customer named Emily is seated at table 5 and tries to order an item that is not available in the menu. The system shows an error, and she successfully orders Salad instead.
+
+Step 1: Add a customer and seat them
+
+Action: The manager selects the option to add and seat a customer.
+Input:
+Enter customer name: Emily
+Enter table number: 5
+Expected Output:
+Customer has been seated at table 5.
+
+Step 2: Attempt to place an invalid order
+
+Action: The manager selects the option to place an order for Emily.
+Input:
+Menu:
+1. Pasta - $12.99 (Prep time: 15 mins)
+2. Burger - $8.99 (Prep time: 10 mins)
+3. Salad - $6.99 (Prep time: 5 mins)
+
+Select items to order (enter 0 to finish): 5
+Expected Output:
+Invalid selection. Please try again.
+
+Step 3: Place a valid order for Salad
+
+Action: Emily orders Salad after seeing the error.
+Input:
+Select items to order (enter 0 to finish): 3
+Expected Output:
+Item added to order.
+Select items to order (enter 0 to finish): 0
+
+Step 4: Process the order
+
+Action: The manager processes Emily’s order.
+Expected Output:
+Processing order for customer Emily...
+Ingredients for Salad are available.
+Order has been processed.
+
+Step 5: Serve the order
+
+Action: The manager serves Emily’s order.
+Expected Output:
+Serving customer order...
+Customer Emily's order has been served.
+Table 5 is now available.
+
+Test Case 3: Restocking Inventory and Placing an Order
+Scenario:
+The restaurant runs out of Beef Patties required for making Burgers. A customer named Tom wants to order a Burger, but the system shows an error. The manager restocks the inventory, and Tom’s order is processed.
+
+Step 1: Add a customer and seat them
+
+Action: The manager selects the option to add and seat a customer.
+Input:
+Enter customer name: Tom
+Enter table number: 1
+Expected Output:
+Customer has been seated at table 1.
+
+Step 2: Tom attempts to order a Burger
+
+Action: Tom orders a Burger, but the system identifies a shortage in ingredients.
+Input:
+Menu:
+1. Pasta - $12.99 (Prep time: 15 mins)
+2. Burger - $8.99 (Prep time: 10 mins)
+3. Salad - $6.99 (Prep time: 5 mins)
+
+Select items to order (enter 0 to finish): 2
+Expected Output:
+Not enough ingredients to prepare Burger!
+
+Step 3: Restock the inventory
+
+Action: The manager restocks Beef Patties.
+Input:
+Enter ingredient to restock: Beef Patty
+Enter quantity: 10
+Expected Output:
+Restocked Beef Patty with 10 units.
+
+Step 4: Tom successfully orders the Burger
+
+Action: Tom places the order again.
+Input:
+Select items to order (enter 0 to finish): 2
+Expected Output:
+Item added to order.
+Select items to order (enter 0 to finish): 0
+
+Step 5: Process the order
+
+Action: The manager processes Tom’s order.
+Expected Output:
+Processing order for customer Tom...
+Ingredients for Burger are available.
+Order has been processed.
+
+Step 6: Serve the order
+
+Action: The manager serves Tom’s order.
+Expected Output:
+Serving customer order...
+Customer Tom's order has been served.
+Table 1 is now available.
+
+Test Case 4: Handling Invalid Inputs for Restocking Ingredients
+Scenario:
+The manager tries to restock an ingredient, but enters invalid values, such as a negative quantity or an ingredient that does not exist in the inventory. The system will display appropriate error messages and handle these cases.
+
+Step 1: Attempt to restock with a negative quantity
+
+Action: The manager tries to restock the ingredient Beef Patty but accidentally enters a negative quantity.
+Input:
+Enter ingredient to restock: Beef Patty
+Enter quantity: -5
+Expected Output:
+Restock amount must be positive.
+
+Step 2: Attempt to restock an invalid (non-existent) ingredient
+
+Action: The manager tries to restock an ingredient that does not exist in the system, e.g., Gold Nuggets.
+Input:
+Enter ingredient to restock: Gold Nuggets
+Enter quantity: 10
+Expected Output:
+Ingredient does not exist. 
+
+Step 3: Successful restock after correcting the input
+
+Action: After correcting the previous invalid inputs, the manager now enters a valid ingredient name and a valid quantity for Beef Patty.
+Input:
+Enter ingredient to restock: Beef Patty
+Enter quantity: 10
+Expected Output:
+Restocked Beef Patty with 10 units.
+
+Additional Invalid Input Scenario:
+Step 4: Attempt to restock with non-numeric input for quantity
+
+Action: The manager accidentally enters a non-numeric input for the quantity while trying to restock Chicken Wings.
+Input:
+Enter ingredient to restock: Chicken Wings
+Enter quantity: abc
+Expected Output:
+Invalid Input. Please enter a valid number for quantity.
+
