@@ -2,7 +2,12 @@
 Project Plan: Virtual Restaurant Simulator
 
 Project Overview
-The Virtual Restaurant Simulator is an interactive software that simulates the operations of a restaurant. It allows users (restaurant managers) to handle various aspects of restaurant management, including managing the menu, seating customers, processing and serving orders, tracking inventory, and monitoring employee performance. The simulator provides a real-world simulation experience of running a restaurant, complete with file management for saving and loading restaurant data such as inventory, menu, and customer orders.
+The Virtual Restaurant Simulator is an interactive software that simulates the operations of a
+restaurant. It allows users (restaurant managers) to handle various aspects of restaurant management,
+including managing the menu, seating customers, processing and serving orders, tracking inventory, and 
+monitoring employee performance. The simulator provides a real-world simulation experience of running a 
+restaurant, complete with file management for saving and loading restaurant data such as inventory, 
+menu, and customer orders.
 
 Objectives:
 Menu Management: Adding, displaying, and saving menu items.
@@ -31,7 +36,8 @@ Head Chef: Manages the kitchen and oversees the chefs.
 
 Use Case Descriptions
 1. Menu Management
-Objective: The manager can add new menu items, display the menu to customers, and save/load the menu from a file.
+Objective: The manager can add new menu items, display the menu to customers, 
+and save/load the menu from a file.
 
 Add Menu Item:
 Restaurant Manager
