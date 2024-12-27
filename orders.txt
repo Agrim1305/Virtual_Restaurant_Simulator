@@ -20,3 +20,27 @@ Item: Lemonade, Price: $3.49
 Item: Burger, Price: $8.99
 Item: Burger, Price: $8.99
 Total: $21.47
+Customer Name: Krish
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Item: Garlic Bread, Price: $3.99
+Item: Pizza, Price: $14.99
+Item: Sushi, Price: $19.99
+Item: Tacos, Price: $7.99
+Item: Garlic Bread, Price: $3.99
+Total: $79.92
+Customer Name: Agrim
+Table Number: 1
+Item: Pasta, Price: $12.99
+Item: Burger, Price: $8.99
+Item: Garlic Bread, Price: $3.99
+Total: $25.97
+Customer Name: Agrim
+Table Number: 2
+Item: Burger, Price: $8.99
+Item: Salad, Price: $6.99
+Item: Pizza, Price: $14.99
+Item: Milkshake, Price: $4.99
+Total: $35.96

@@ -1,16 +1,16 @@
 Beef Patty,9
-Bread,9
+Bread,10
 Cabbage,10
 Cheese,10
 Chicken,10
 Chocolate,10
 Coffee Beans,10
-Dough,14
+Dough,9
 Fruit,10
 Ice Cream,10
 Lemon,10
-Milk,10
-Pasta,11
+Milk,14
+Pasta,10
 Potatoes,10
 Rice,10
 Salad Greens,9
